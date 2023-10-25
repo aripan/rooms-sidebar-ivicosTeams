@@ -8,7 +8,7 @@ import {
   TeamsUserCredential,
 } from "@microsoft/teamsfx";
 import { TeamsFxContext } from "../Context";
-import config from "./lib/config";
+import config from "../lib/config";
 
 const functionName = "userRoutes";
 // const functionName = config.apiName || "myFunc";
