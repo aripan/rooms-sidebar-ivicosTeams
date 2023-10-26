@@ -44,7 +44,18 @@ export default async function run(
         result = await graphClient.api("/me").get();
         break;
       case "photo":
-        result = await graphClient.api("/me/photo/$value").get();
+        const response = await graphClient.api("/me/photo/$value").get();
+
+        // create the buffer from the Blob object
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        // convert it to base64 and then to imageUrl
+        const base64String = buffer.toString('base64');
+        const imageUrl = 'data:image/jpeg;base64,' + base64String;
+
+        // sending it to frontend
+        result = imageUrl
         break;
       case "messages":
         result = await graphClient.api("/me/messages").get();

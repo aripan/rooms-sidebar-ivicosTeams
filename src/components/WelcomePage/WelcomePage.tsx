@@ -12,7 +12,7 @@ export function WelcomePage() {
   }
   const { loading, data, error, reload } = useAzureFunctionData(
     teamsUserCredential,
-    "userRoutes/me"
+    "userRoutes/photo"
   );
 
   return (
@@ -26,13 +26,23 @@ export function WelcomePage() {
 
         {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
 
-        <Person
+        <img
+          src={data}
+          alt="avatar"
+          width={200}
+          height={200}
+          style={{
+            borderRadius: "50%",
+          }}
+        />
+
+        {/* <Person
           personQuery={data?.mail}
           view={PersonViewType.twolines}
           avatarSize="large"
-        />
+        /> */}
 
-        <PersonCard personQuery="me" />
+        {/* <PersonCard personQuery="me" /> */}
       </div>
     </div>
   );
