@@ -68,8 +68,6 @@ export default async function run(
         };
     }
     res.body = result;
-    // res.body.graphClientMessage = result;
-
 
   } catch (error) {
     context.log.error(error);
