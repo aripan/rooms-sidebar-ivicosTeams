@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { Button } from "@fluentui/react-components";
+import { Button, PresenceBadge } from "@fluentui/react-components";
 import "./WelcomePage.css";
 import { TeamsFxContext } from "../Context";
 import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
+import { Person, PersonCard, PersonViewType } from "@microsoft/mgt-react";
 
 export function WelcomePage() {
   const { teamsUserCredential } = useContext(TeamsFxContext);
@@ -11,7 +12,7 @@ export function WelcomePage() {
   }
   const { loading, data, error, reload } = useAzureFunctionData(
     teamsUserCredential,
-    "userRoutes/messages"
+    "userRoutes/me"
   );
 
   return (
@@ -24,6 +25,14 @@ export function WelcomePage() {
         )}
 
         {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+
+        <Person
+          personQuery={data?.mail}
+          view={PersonViewType.twolines}
+          avatarSize="large"
+        />
+
+        <PersonCard personQuery="me" />
       </div>
     </div>
   );
