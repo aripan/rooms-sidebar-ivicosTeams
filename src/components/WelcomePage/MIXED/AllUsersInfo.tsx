@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { Button, PresenceBadge } from "@fluentui/react-components";
-import "./WelcomePage.css";
-import { TeamsFxContext } from "../Context";
-import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
+import { useContext, useState } from "react";
+import { Button } from "@fluentui/react-components";
+import "../WelcomePage.css";
+import { TeamsFxContext } from "../../Context";
+import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
 import { Person, PersonViewType } from "@microsoft/mgt-react";
 import { Stack } from "@fluentui/react";
 

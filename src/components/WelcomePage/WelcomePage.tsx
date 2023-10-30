@@ -1,9 +1,11 @@
 import "./WelcomePage.css";
-import { UserPhoto } from "./UserPhoto";
-import { UserInfo } from "./UserInfo";
+import { UserPhoto } from "./NON-MGT/UserPhoto";
+import { UserInfo } from "./NON-MGT/UserInfo";
 import { Stack } from "@fluentui/react";
-import { AllUsersInfo } from "./AllUsersInfo";
-import { SearchUserByEmail } from "./SearchUserByEmail";
+import { AllUsersInfo } from "./MIXED/AllUsersInfo";
+import { SearchUserByEmail } from "./MIXED/SearchUserByEmail";
+import { CalendarEvents } from "./NON-MGT/CalendarEvents";
+import { CalendarEventsMgt } from "./MGT/CalendarEventsMgt";
 
 export function WelcomePage() {
   return (
@@ -14,6 +16,8 @@ export function WelcomePage() {
         <AllUsersInfo endpoint="usersRoutes/users" />
         <SearchUserByEmail endpoint="usersRoutes/users" />
       </Stack>
+      <CalendarEvents />
+      <CalendarEventsMgt />
 
       {/* <Person
           personQuery={data?.mail}

@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { Button, PresenceBadge } from "@fluentui/react-components";
-import "./WelcomePage.css";
-import { TeamsFxContext } from "../Context";
-import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
-import { Person, PersonCard, PersonViewType } from "@microsoft/mgt-react";
+import { useContext, useState } from "react";
+import "../WelcomePage.css";
+import { TeamsFxContext } from "../../Context";
+import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
+import { Person, PersonViewType } from "@microsoft/mgt-react";
 import { Stack, TextField } from "@fluentui/react";
 
 export function SearchUserByEmail({ endpoint }: any) {

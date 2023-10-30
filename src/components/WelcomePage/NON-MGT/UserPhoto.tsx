@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { Button, PresenceBadge } from "@fluentui/react-components";
-import "./WelcomePage.css";
-import { TeamsFxContext } from "../Context";
-import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
+import { useContext, useState } from "react";
+import { Button } from "@fluentui/react-components";
+import "../WelcomePage.css";
+import { TeamsFxContext } from "../../Context";
+import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
 
-export function UserInfo({ endpoint }: any) {
+export function UserPhoto({ endpoint }: any) {
   const [showInfo, setShowInfo] = useState(false);
   const { teamsUserCredential } = useContext(TeamsFxContext);
 
@@ -28,17 +28,21 @@ export function UserInfo({ endpoint }: any) {
               setShowInfo(!showInfo);
             }}
           >
-            {showInfo ? "Hide Info" : "Show Info"}
+            {showInfo ? "Hide Photo" : "Show Photo"}
           </Button>
         </div>
         <br />
         <br />
-
         {showInfo && (
-          <>
-            <h4>Name: {data?.displayName}</h4>
-            <h4>Email: {data?.mail}</h4>
-          </>
+          <img
+            src={data}
+            alt="avatar"
+            width={100}
+            height={100}
+            style={{
+              borderRadius: "50%",
+            }}
+          />
         )}
       </div>
     </div>
