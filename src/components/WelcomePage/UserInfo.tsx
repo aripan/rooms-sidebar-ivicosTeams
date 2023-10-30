@@ -28,7 +28,7 @@ export function UserInfo({ endpoint }: any) {
               setShowInfo(!showInfo);
             }}
           >
-            Show Info
+            {showInfo ? "Hide Info" : "Show Info"}
           </Button>
         </div>
         <br />

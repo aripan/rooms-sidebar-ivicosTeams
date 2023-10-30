@@ -29,7 +29,7 @@ export function AllUsersInfo({ endpoint }: any) {
               setShowInfo(!showInfo);
             }}
           >
-            Show Other Users
+            {showInfo ? "Hide All Users" : "Show All Users"}
           </Button>
         </div>
 

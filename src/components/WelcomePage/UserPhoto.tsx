@@ -28,7 +28,7 @@ export function UserPhoto({ endpoint }: any) {
               setShowInfo(!showInfo);
             }}
           >
-            Show Photo
+            {showInfo ? "Hide Photo" : "Show Photo"}
           </Button>
         </div>
         <br />
