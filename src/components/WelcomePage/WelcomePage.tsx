@@ -2,6 +2,7 @@ import "./WelcomePage.css";
 import { UserPhoto } from "./UserPhoto";
 import { UserInfo } from "./UserInfo";
 import { Stack } from "@fluentui/react";
+import { AllUsersInfo } from "./AllUsersInfo";
 
 export function WelcomePage() {
   return (
@@ -9,6 +10,7 @@ export function WelcomePage() {
       <Stack horizontal>
         <UserPhoto endpoint="userRoutes/photo" />
         <UserInfo endpoint="userRoutes/me" />
+        <AllUsersInfo endpoint="usersRoutes/users" />
       </Stack>
 
       {/* <Person

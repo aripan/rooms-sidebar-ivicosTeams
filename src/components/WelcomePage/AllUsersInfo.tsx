@@ -3,8 +3,10 @@ import { Button, PresenceBadge } from "@fluentui/react-components";
 import "./WelcomePage.css";
 import { TeamsFxContext } from "../Context";
 import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
+import { Person, PersonViewType } from "@microsoft/mgt-react";
+import { Stack } from "@fluentui/react";
 
-export function UserPhoto({ endpoint }: any) {
+export function AllUsersInfo({ endpoint }: any) {
   const [showInfo, setShowInfo] = useState(false);
   const { teamsUserCredential } = useContext(TeamsFxContext);
 
@@ -18,33 +20,40 @@ export function UserPhoto({ endpoint }: any) {
 
   return (
     <div className="welcome page">
-      <div className="page-padding">
+      <Stack className="page-padding">
         <div>
           <Button
             appearance="primary"
-            // disabled={loading}
             onClick={() => {
               reload();
               setShowInfo(!showInfo);
             }}
           >
-            Show Photo
+            Show Other Users
           </Button>
         </div>
-        <br />
-        <br />
-        {showInfo && (
-          <img
-            src={data}
-            alt="avatar"
-            width={100}
-            height={100}
-            style={{
-              borderRadius: "50%",
-            }}
-          />
-        )}
-      </div>
+
+        <Stack
+          style={{
+            width: 250,
+            maxHeight: 350,
+            overflowY: "auto",
+            overflowX: "hidden",
+          }}
+        >
+          {showInfo &&
+            data &&
+            data.map((user: { mail: string | undefined }) => (
+              <Stack key={user?.mail}>
+                <Person
+                  personQuery={user?.mail}
+                  view={PersonViewType.twolines}
+                  avatarSize="large"
+                />
+              </Stack>
+            ))}
+        </Stack>
+      </Stack>
     </div>
   );
 }

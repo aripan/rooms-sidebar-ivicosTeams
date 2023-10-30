@@ -22,7 +22,7 @@ export function UserInfo({ endpoint }: any) {
         <div>
           <Button
             appearance="primary"
-            disabled={loading}
+            // disabled={loading}
             onClick={() => {
               reload();
               setShowInfo(!showInfo);
