@@ -5,6 +5,7 @@ import { TeamsFxContext } from "../Context";
 import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
 
 export function UserPhoto({ endpoint }: any) {
+  const [showInfo, setShowInfo] = useState(false);
   const { teamsUserCredential } = useContext(TeamsFxContext);
 
   if (!teamsUserCredential) {
@@ -19,22 +20,30 @@ export function UserPhoto({ endpoint }: any) {
     <div className="welcome page">
       <div className="page-padding">
         <div>
-          <Button appearance="primary" disabled={loading} onClick={reload}>
+          <Button
+            appearance="primary"
+            disabled={loading}
+            onClick={() => {
+              reload();
+              setShowInfo(!showInfo);
+            }}
+          >
             Show Photo
           </Button>
         </div>
         <br />
         <br />
-
-        <img
-          src={data}
-          alt="avatar"
-          width={200}
-          height={200}
-          style={{
-            borderRadius: "50%",
-          }}
-        />
+        {showInfo && (
+          <img
+            src={data}
+            alt="avatar"
+            width={100}
+            height={100}
+            style={{
+              borderRadius: "50%",
+            }}
+          />
+        )}
       </div>
     </div>
   );

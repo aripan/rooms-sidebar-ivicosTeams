@@ -5,6 +5,7 @@ import { TeamsFxContext } from "../Context";
 import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
 
 export function UserInfo({ endpoint }: any) {
+  const [showInfo, setShowInfo] = useState(false);
   const { teamsUserCredential } = useContext(TeamsFxContext);
 
   if (!teamsUserCredential) {
@@ -19,15 +20,26 @@ export function UserInfo({ endpoint }: any) {
     <div className="welcome page">
       <div className="page-padding">
         <div>
-          <Button appearance="primary" disabled={loading} onClick={reload}>
+          <Button
+            appearance="primary"
+            disabled={loading}
+            onClick={() => {
+              reload();
+              setShowInfo(!showInfo);
+            }}
+          >
             Show Info
           </Button>
         </div>
         <br />
         <br />
 
-        <h1>Name: {data?.displayName}</h1>
-        <h1>Email: {data?.mail}</h1>
+        {showInfo && (
+          <>
+            <h4>Name: {data?.displayName}</h4>
+            <h4>Email: {data?.mail}</h4>
+          </>
+        )}
       </div>
     </div>
   );
