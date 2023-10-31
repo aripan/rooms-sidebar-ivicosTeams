@@ -8,6 +8,8 @@ import { CalendarEvents } from "./NON-MGT/CalendarEvents";
 import { CalendarEventsMgt } from "./MGT/CalendarEventsMgt";
 import { PeoplePickerMgt } from "./MGT/PeoplePickerMGT";
 import SectionHeader from "./SectionHeader";
+import { TasksMgt } from "./MGT/TasksMGT";
+import { TodoListsMgt } from "./MGT/TodoListsMGT";
 
 export function WelcomePage() {
   return (
@@ -35,6 +37,8 @@ export function WelcomePage() {
       <Stack horizontal>
         <CalendarEventsMgt />
         <PeoplePickerMgt />
+        {/* <TasksMgt /> */}
+        <TodoListsMgt />
       </Stack>
     </div>
   );
