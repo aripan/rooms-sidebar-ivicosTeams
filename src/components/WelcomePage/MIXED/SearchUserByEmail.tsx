@@ -38,9 +38,9 @@ export function SearchUserByEmail({ endpoint }: any) {
           style={{
             width: 250,
           }}
-          label="Search User By Email"
           value={emailAddress}
           onChange={(e) => handleInputChange(e)}
+          placeholder="Search User By Email"
         />
         <br />
         <Stack

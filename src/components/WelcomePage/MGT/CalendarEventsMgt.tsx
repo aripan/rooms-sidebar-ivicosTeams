@@ -38,7 +38,9 @@ export function CalendarEventsMgt() {
             overflowY: "auto",
           }}
         >
-          {showInfo && <Agenda date={now.toISOString()} days={4} groupByDay />}
+          {showInfo && (
+            <Agenda date={now.toISOString()} days={4} groupByDay showMax={5} />
+          )}
         </Stack>
       </Stack>
     </div>
