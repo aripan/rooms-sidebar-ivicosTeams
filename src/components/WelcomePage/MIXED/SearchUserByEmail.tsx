@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "../WelcomePage.css";
 import { TeamsFxContext } from "../../Context";
 import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
-import { Person, PersonViewType } from "@microsoft/mgt-react";
+import { Person, PersonCard, PersonViewType } from "@microsoft/mgt-react";
 import { Stack, TextField } from "@fluentui/react";
 
 export function SearchUserByEmail({ endpoint }: any) {
@@ -61,11 +61,12 @@ export function SearchUserByEmail({ endpoint }: any) {
               )
               .map((user: { mail: string | undefined }) => (
                 <Stack key={user?.mail} onClick={(e) => handleOnClick(e, user)}>
-                  <Person
+                  <PersonCard personQuery={user?.mail} />
+                  {/* <Person
                     personQuery={user?.mail}
                     view={PersonViewType.twolines}
                     avatarSize="large"
-                  />
+                  /> */}
                 </Stack>
               ))}
         </Stack>
