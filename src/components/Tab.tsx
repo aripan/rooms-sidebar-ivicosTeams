@@ -1,10 +1,6 @@
 import { useContext } from "react";
-import { Welcome } from "./sample/Welcome";
 import { TeamsFxContext } from "./Context";
-import config from "./lib/config";
 import { WelcomePage } from "./WelcomePage/WelcomePage";
-
-const showFunction = Boolean(config.apiName);
 
 export default function Tab() {
   const { themeString } = useContext(TeamsFxContext);
@@ -19,7 +15,6 @@ export default function Tab() {
       }
     >
       <WelcomePage />
-      {/* <Welcome showFunction={showFunction} /> */}
     </div>
   );
 }

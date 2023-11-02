@@ -4,7 +4,7 @@ import {
   BearerTokenAuthProvider,
   TeamsUserCredential,
 } from "@microsoft/teamsfx";
-import config from "../lib/config";
+import config from "../config/config";
 
 export async function CallAzureFunction(
   teamsUserCredential: TeamsUserCredential,

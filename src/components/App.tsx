@@ -18,7 +18,7 @@ import Privacy from "./Privacy";
 import TermsOfUse from "./TermsOfUse";
 import Tab from "./Tab";
 import { TeamsFxContext } from "./Context";
-import config from "./lib/config";
+import config from "./config/config";
 
 /**
  * The main app which handles the initialization and routing
