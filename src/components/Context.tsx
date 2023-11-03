@@ -4,10 +4,10 @@ import { Theme } from "@fluentui/react-components";
 
 export const TeamsFxContext = createContext<{
   theme?: Theme;
-  themeString: string;
+  themeString?: string;
   teamsUserCredential?: TeamsUserCredential;
 }>({
   theme: undefined,
-  themeString: "",
+  themeString: undefined,
   teamsUserCredential: undefined,
 });

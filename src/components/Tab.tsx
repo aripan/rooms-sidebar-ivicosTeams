@@ -1,20 +1,10 @@
-import { useContext } from "react";
-import { TeamsFxContext } from "./Context";
-import { WelcomePage } from "./WelcomePage/WelcomePage";
+import { Stack } from "@fluentui/react";
+import Main from "./Main/Main";
 
 export default function Tab() {
-  const { themeString } = useContext(TeamsFxContext);
   return (
-    <div
-      className={
-        themeString === "default"
-          ? "light"
-          : themeString === "dark"
-          ? "dark"
-          : "contrast"
-      }
-    >
-      <WelcomePage />
-    </div>
+    <Stack>
+      <Main />
+    </Stack>
   );
 }
