@@ -1,7 +1,11 @@
-import { Stack } from "@fluentui/react";
+import { PersonaPresence, Stack } from "@fluentui/react";
 import { DividerBox } from "rc-dock";
 import "rc-dock/dist/rc-dock.css";
 import React from "react";
+import { UsersInfo } from "./UsersInfo";
+import { Person, PersonViewType } from "@microsoft/mgt-react";
+import { PresenceBadge } from "@fluentui/react-components";
+import { CurrentUsersInfo } from "./CurrentUserInfo";
 
 const RoomListView: React.FC<{}> = () => {
   return (
@@ -15,6 +19,8 @@ const RoomListView: React.FC<{}> = () => {
             }}
           >
             <h3>Show personal rooms</h3>
+
+            <CurrentUsersInfo endpoint="userRoutes/currentUserInfo" />
             {/* <PersonalRoomList /> */}
           </Stack>
 
