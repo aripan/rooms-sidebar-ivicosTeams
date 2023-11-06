@@ -6,8 +6,10 @@ import { default as React } from "react";
 import SideBar from "../SideBar/SideBar";
 import RoomList from "../RoomList/RoomList";
 import Rooms from "../RoomView/Rooms";
+import { MainState } from "./Main.state";
 
-const MainView: React.FC<{}> = () => {
+const MainView: React.FC<MainState> = (props) => {
+  console.log("🚀 ~ file: Main.view.tsx:12 ~ props:", props);
   const sideBarContainerStyles = {
     width: "30%",
     height: "80vh",
