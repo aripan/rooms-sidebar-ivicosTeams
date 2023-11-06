@@ -23,16 +23,6 @@ const RoomListView: React.FC<{}> = () => {
             <h3>Show personal rooms</h3>
 
             <CurrentUsersInfo endpoint="userRoutes/currentUserInfo" />
-            <Stack
-              style={{
-                width: 200,
-                height: "auto",
-                border: "1px solid black",
-              }}
-            >
-              <AdaptiveCardComponent cardJson={cardJson2} />
-              <AdaptiveCardComponent cardJson={cardJson2} />
-            </Stack>
 
             {/* <PersonalRoomList /> */}
           </Stack>

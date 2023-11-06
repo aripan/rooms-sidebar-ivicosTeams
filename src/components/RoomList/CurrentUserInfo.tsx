@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { TeamsFxContext } from "../Context";
 import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
-import { Stack } from "@fluentui/react";
+import { Label, Stack, rgb2hsv } from "@fluentui/react";
 import { UserPersona } from "./UserPersona";
 
 export function CurrentUsersInfo({ endpoint }: any) {
@@ -19,14 +19,31 @@ export function CurrentUsersInfo({ endpoint }: any) {
   const { meInfo, myPresenceInfo, imgUrl } = data ?? {};
 
   return (
-    <Stack>
+    <Stack
+      style={{
+        backgroundColor: "rgba(145, 234, 228, 0.4)",
+        padding: "0 0 10px 0",
+        borderRadius: 10,
+      }}
+    >
       {meInfo && myPresenceInfo && imgUrl && (
-        <UserPersona
-          name={meInfo.displayName}
-          imageUrl={imgUrl}
-          presenceStatus={myPresenceInfo.availability.toLowerCase()}
-          outOfOfficeStatus={myPresenceInfo.outOfOfficeSettings.isOutOfOffice}
-        />
+        <>
+          <Label
+            style={{
+              backgroundColor: "rgba(145, 234, 228, 0.9)",
+              borderRadius: "10px 10px 0 0",
+              padding: "5px 5px 5px 10px",
+            }}
+          >
+            {meInfo.displayName}'s room
+          </Label>
+          <UserPersona
+            name={meInfo.displayName}
+            imageUrl={imgUrl}
+            presenceStatus={myPresenceInfo.availability.toLowerCase()}
+            outOfOfficeStatus={myPresenceInfo.outOfOfficeSettings.isOutOfOffice}
+          />
+        </>
       )}
     </Stack>
   );

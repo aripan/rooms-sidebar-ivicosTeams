@@ -4,8 +4,8 @@ import { DividerBox } from "rc-dock";
 import "rc-dock/dist/rc-dock.css";
 import { default as React } from "react";
 import SideBar from "../SideBar/SideBar";
-import RoomView from "../RoomView/RoomView";
 import RoomList from "../RoomList/RoomList";
+import Rooms from "../RoomView/Rooms";
 
 const MainView: React.FC<{}> = () => {
   const sideBarContainerStyles = {
@@ -39,7 +39,7 @@ const MainView: React.FC<{}> = () => {
         </Stack>
 
         <Stack style={mainViewContainerStyles}>
-          <RoomView />
+          <Rooms />
         </Stack>
       </DividerBox>
     </Stack>

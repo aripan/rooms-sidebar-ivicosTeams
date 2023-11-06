@@ -14,7 +14,13 @@ export const UserPersona: React.FC<any> = ({
     outOfOfficeStatus
   );
   return (
-    <Stack horizontal>
+    <Stack
+      horizontal
+      style={{
+        paddingTop: 10,
+        paddingLeft: 10,
+      }}
+    >
       <Persona
         presence={{ status: presenceStatus, outOfOffice: outOfOfficeStatus }}
         avatar={{
