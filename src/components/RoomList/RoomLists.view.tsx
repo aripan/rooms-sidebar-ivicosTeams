@@ -6,6 +6,8 @@ import { UsersInfo } from "./UsersInfo";
 import { Person, PersonViewType } from "@microsoft/mgt-react";
 import { PresenceBadge } from "@fluentui/react-components";
 import { CurrentUsersInfo } from "./CurrentUserInfo";
+import AdaptiveCardComponent from "../Adaptivecards/AdaptiveCard";
+import { cardJson, cardJson2 } from "./jsonData";
 
 const RoomListView: React.FC<{}> = () => {
   return (
@@ -21,6 +23,17 @@ const RoomListView: React.FC<{}> = () => {
             <h3>Show personal rooms</h3>
 
             <CurrentUsersInfo endpoint="userRoutes/currentUserInfo" />
+            <Stack
+              style={{
+                width: 200,
+                height: "auto",
+                border: "1px solid black",
+              }}
+            >
+              <AdaptiveCardComponent cardJson={cardJson2} />
+              <AdaptiveCardComponent cardJson={cardJson2} />
+            </Stack>
+
             {/* <PersonalRoomList /> */}
           </Stack>
 
