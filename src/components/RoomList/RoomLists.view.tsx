@@ -9,7 +9,7 @@ import { CurrentUsersInfo } from "./CurrentUserInfo";
 import AdaptiveCardComponent from "../Adaptivecards/AdaptiveCard";
 import { cardJson, cardJson2 } from "./jsonData";
 
-const RoomListView: React.FC<{}> = () => {
+const RoomListView: React.FC<any> = (props) => {
   return (
     <Stack style={{ maxHeight: "100%", height: "100%" }}>
       <Stack style={{ maxHeight: "100%", height: "100%" }}>
@@ -22,7 +22,10 @@ const RoomListView: React.FC<{}> = () => {
           >
             <h3>Show personal rooms</h3>
 
-            <CurrentUsersInfo endpoint="userRoutes/currentUserInfo" />
+            <CurrentUsersInfo
+              endpoint="userRoutes/currentUserInfo"
+              handleAddUser={props.handleAddUser}
+            />
 
             {/* <PersonalRoomList /> */}
           </Stack>

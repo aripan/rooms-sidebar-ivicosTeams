@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { TeamsFxContext } from "../Context";
 import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
-import { Label, Stack, rgb2hsv } from "@fluentui/react";
+import { Label, Stack } from "@fluentui/react";
 import { UserPersona } from "./UserPersona";
 
-export function CurrentUsersInfo({ endpoint }: any) {
+export function CurrentUsersInfo(props: any) {
+  const { endpoint, handleAddUser } = props;
   const { teamsUserCredential } = useContext(TeamsFxContext);
 
   if (!teamsUserCredential) {
@@ -17,6 +18,19 @@ export function CurrentUsersInfo({ endpoint }: any) {
   );
 
   const { meInfo, myPresenceInfo, imgUrl } = data ?? {};
+
+  useEffect(() => {
+    if (meInfo && myPresenceInfo && imgUrl) {
+      const user = {
+        name: meInfo.displayName,
+        email: meInfo.mail,
+        image: imgUrl,
+        presence: myPresenceInfo.availability.toLowerCase(),
+        isOutOfOffice: myPresenceInfo.outOfOfficeSettings.isOutOfOffice,
+      };
+      handleAddUser(user);
+    }
+  }, [meInfo, myPresenceInfo, imgUrl]);
 
   return (
     <Stack

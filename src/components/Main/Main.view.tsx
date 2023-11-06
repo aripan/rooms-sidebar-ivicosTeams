@@ -36,7 +36,7 @@ const MainView: React.FC<MainState> = (props) => {
       <DividerBox mode={"horizontal"} style={{ width: "100%", height: "100%" }}>
         <Stack style={sideBarContainerStyles}>
           <SideBar>
-            <RoomList />
+            <RoomList handleAddUser={props.handleAddUser} />
           </SideBar>
         </Stack>
 
