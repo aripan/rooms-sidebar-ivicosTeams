@@ -8,11 +8,7 @@ export const UserPersona: React.FC<any> = ({
   presenceStatus,
   outOfOfficeStatus,
 }) => {
-  console.log(
-    "🚀 ~ file: UserPersona.tsx:10 ~ presenceStatus:",
-    presenceStatus,
-    outOfOfficeStatus
-  );
+
   return (
     <Stack
       horizontal

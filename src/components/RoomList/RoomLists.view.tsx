@@ -1,15 +1,11 @@
-import { PersonaPresence, Stack } from "@fluentui/react";
+import { Stack } from "@fluentui/react";
 import { DividerBox } from "rc-dock";
 import "rc-dock/dist/rc-dock.css";
 import React from "react";
-import { UsersInfo } from "./UsersInfo";
-import { Person, PersonViewType } from "@microsoft/mgt-react";
-import { PresenceBadge } from "@fluentui/react-components";
-import { CurrentUsersInfo } from "./CurrentUserInfo";
-import AdaptiveCardComponent from "../Adaptivecards/AdaptiveCard";
-import { cardJson, cardJson2 } from "./jsonData";
+import { PersonalRoom } from "./PersonalRoom";
 
 const RoomListView: React.FC<any> = (props) => {
+  const { users } = props;
   return (
     <Stack style={{ maxHeight: "100%", height: "100%" }}>
       <Stack style={{ maxHeight: "100%", height: "100%" }}>
@@ -21,13 +17,16 @@ const RoomListView: React.FC<any> = (props) => {
             }}
           >
             <h3>Show personal rooms</h3>
-
-            <CurrentUsersInfo
-              endpoint="userRoutes/currentUserInfo"
-              handleAddUser={props.handleAddUser}
-            />
-
-            {/* <PersonalRoomList /> */}
+            {users.map((user: any) => (
+              <Stack
+                key={user.id}
+                tokens={{
+                  childrenGap: 10,
+                }}
+              >
+                <PersonalRoom user={user} />
+              </Stack>
+            ))}
           </Stack>
 
           <Stack

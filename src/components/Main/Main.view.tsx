@@ -2,7 +2,7 @@ import { Stack } from "@fluentui/react";
 
 import { DividerBox } from "rc-dock";
 import "rc-dock/dist/rc-dock.css";
-import { default as React } from "react";
+import { default as React, useEffect, useState } from "react";
 import SideBar from "../SideBar/SideBar";
 import RoomList from "../RoomList/RoomList";
 import Rooms from "../RoomView/Rooms";
@@ -10,6 +10,11 @@ import { MainState } from "./Main.state";
 
 const MainView: React.FC<MainState> = (props) => {
   console.log("🚀 ~ file: Main.view.tsx:12 ~ props:", props);
+
+  const { users, rooms } = props;
+
+  const [showStructure, setShowStructure] = useState(false);
+
   const sideBarContainerStyles = {
     width: "30%",
     height: "80vh",
@@ -23,6 +28,10 @@ const MainView: React.FC<MainState> = (props) => {
     border: "2px solid blue",
   };
 
+  useEffect(() => {
+    setShowStructure(users.length > 0);
+  }, [users, rooms]);
+
   return (
     <Stack
       verticalAlign="stretch"
@@ -33,17 +42,24 @@ const MainView: React.FC<MainState> = (props) => {
         margin: 20,
       }}
     >
-      <DividerBox mode={"horizontal"} style={{ width: "100%", height: "100%" }}>
-        <Stack style={sideBarContainerStyles}>
-          <SideBar>
-            <RoomList handleAddUser={props.handleAddUser} />
-          </SideBar>
-        </Stack>
+      {showStructure ? (
+        <DividerBox
+          mode={"horizontal"}
+          style={{ width: "100%", height: "100%" }}
+        >
+          <Stack style={sideBarContainerStyles}>
+            <SideBar>
+              <RoomList users={users} />
+            </SideBar>
+          </Stack>
 
-        <Stack style={mainViewContainerStyles}>
-          <Rooms />
-        </Stack>
-      </DividerBox>
+          <Stack style={mainViewContainerStyles}>
+            <Rooms />
+          </Stack>
+        </DividerBox>
+      ) : (
+        "Loading..."
+      )}
     </Stack>
   );
 };

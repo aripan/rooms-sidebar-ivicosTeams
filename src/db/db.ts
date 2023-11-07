@@ -21,10 +21,15 @@ export const getRooms = (): Room[] => {
     return db.rooms;
 };
 
-export const addUser = (user: User): void => {
+export const addUser = (newUser: User): void => {
     const db = loadDatabase();
-    db.users.push(user);
-    saveDatabase(db);
+    const userExist = db.users.find(user => user.id === newUser.id)
+    console.log("🚀 ~ file: db.ts:27 ~ addUser ~ userExist:", userExist)
+    if (!userExist) {
+        db.users.push(newUser);
+        saveDatabase(db);
+    }
+
 };
 
 export const updateUser = (userId: string, updatedProps: any) => {
