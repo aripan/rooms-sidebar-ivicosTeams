@@ -8,6 +8,8 @@ import {
   TeamsUserCredential,
   TeamsUserCredentialAuthConfig,
 } from "@microsoft/teamsfx";
+import { RecoilRoot } from "recoil";
+
 const authConfig: TeamsUserCredentialAuthConfig = {
   clientId: process.env.REACT_APP_CLIENT_ID!,
   initiateLoginEndpoint: process.env.REACT_APP_FUNC_ENDPOINT!,
@@ -42,4 +44,8 @@ const AppWrapper = () => {
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
-root.render(<AppWrapper />);
+root.render(
+  <RecoilRoot>
+    <AppWrapper />
+  </RecoilRoot>
+);

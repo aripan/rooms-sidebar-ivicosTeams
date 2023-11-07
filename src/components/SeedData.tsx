@@ -1,14 +1,21 @@
 import { DefaultButton, PrimaryButton, Stack } from "@fluentui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fakeUsers, fakeRooms } from "../db/data";
+import { generateFakeUsers, generateCommonRooms } from "../db/data";
 import { Room, User } from "../db/dbTypes";
 import { addRoom, addUser, loadDatabase, saveDatabase } from "../db/db";
+import {
+  useFakeRoomsAdded,
+  useFakeUsersAdded,
+} from "../shared-state/seed-data/hooks";
 
 const SeedData = () => {
   const routeHistory = useNavigate();
-  const [fakeUsersAdded, setFakeUsersAdded] = useState(false);
-  const [fakeRoomsAdded, setFakeRoomsAdded] = useState(false);
+  const fakeUsers = generateFakeUsers(6);
+  const fakeRooms = generateCommonRooms(6);
+
+  const [fakeUsersAdded, setFakeUsersAdded] = useFakeUsersAdded();
+  const [fakeRoomsAdded, setFakeRoomsAdded] = useFakeRoomsAdded();
 
   // Users
   const handleAddFakeUser = (joinedUser: User) => {
@@ -73,7 +80,7 @@ const SeedData = () => {
     const db = loadDatabase();
     db.rooms = [];
     saveDatabase(db);
-    setFakeUsersAdded(false);
+    setFakeRoomsAdded(false);
   };
 
   return (
