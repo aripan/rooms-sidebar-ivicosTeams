@@ -1,5 +1,4 @@
-import { Stack } from "@fluentui/react";
-
+import { Stack, PrimaryButton } from "@fluentui/react";
 import { DividerBox } from "rc-dock";
 import "rc-dock/dist/rc-dock.css";
 import { default as React, useEffect, useState } from "react";
@@ -7,9 +6,12 @@ import SideBar from "../SideBar/SideBar";
 import RoomList from "../RoomList/RoomList";
 import Rooms from "../RoomView/Rooms";
 import { MainState } from "./Main.state";
+import { useNavigate } from "react-router-dom";
 
 const MainView: React.FC<MainState> = (props) => {
   console.log("🚀 ~ file: Main.view.tsx:12 ~ props:", props);
+
+  const routeHistory = useNavigate();
 
   const { users, rooms } = props;
 
@@ -42,6 +44,22 @@ const MainView: React.FC<MainState> = (props) => {
         margin: 20,
       }}
     >
+      <Stack
+        style={{
+          width: 150,
+          height: "auto",
+          marginBottom: 10,
+        }}
+      >
+        <PrimaryButton
+          onClick={() => {
+            routeHistory("/seedData");
+          }}
+        >
+          Seed Data
+        </PrimaryButton>
+      </Stack>
+
       {showStructure ? (
         <DividerBox
           mode={"horizontal"}

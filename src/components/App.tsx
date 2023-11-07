@@ -19,6 +19,7 @@ import TermsOfUse from "./TermsOfUse";
 import Tab from "./Tab";
 import { TeamsFxContext } from "./Context";
 import config from "./config/config";
+import SeedData from "./SeedData";
 
 /**
  * The main app which handles the initialization and routing
@@ -55,6 +56,7 @@ export default function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/termsofuse" element={<TermsOfUse />} />
               <Route path="/tab" element={<Tab />} />
+              <Route path="/seedData" element={<SeedData />} />
               <Route path="*" element={<Navigate to={"/tab"} />}></Route>
             </Routes>
           )}
