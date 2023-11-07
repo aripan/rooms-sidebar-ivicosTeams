@@ -67,7 +67,7 @@ const MainView: React.FC<MainState> = (props) => {
         >
           <Stack style={sideBarContainerStyles}>
             <SideBar>
-              <RoomList users={users} />
+              <RoomList users={users} rooms={rooms} />
             </SideBar>
           </Stack>
 
