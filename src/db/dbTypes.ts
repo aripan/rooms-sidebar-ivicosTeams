@@ -16,6 +16,7 @@ export interface Room {
   isPersonal: boolean;
   attributes: {
     iconKey: string;
+    roomImg: string;
     // ... other room properties
   }
 

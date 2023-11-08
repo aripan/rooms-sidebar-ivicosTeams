@@ -14,6 +14,18 @@ export const generateFakeUsers = (amountOfUsers: number): any[] => {
     }));
 };
 
+export const generateFakePersonalRooms = (fakeUsers: any[]): any[] => {
+    return fakeUsers.map((fakeUser) => ({
+        id: `Personal-${fakeUser.id}`,
+        name: `${fakeUser.name}'s personal room`,
+        isPersonal: true,
+        attributes: {
+            iconKey: '',
+            roomImg: fakeUser.image
+        }
+    }));
+};
+
 export const generateCommonRooms = (amountOfRooms: number): any[] => {
     return [...Array(amountOfRooms).keys()].map((key) => ({
         id: faker.string.uuid(),
@@ -21,6 +33,7 @@ export const generateCommonRooms = (amountOfRooms: number): any[] => {
         isPersonal: false,
         attributes: {
             iconKey: roomIcons[Math.floor(Math.random() * roomIcons.length)],
+            roomImg: faker.image.avatar()
         }
     }));
 };

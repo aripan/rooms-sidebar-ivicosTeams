@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Room, User } from "../../db/dbTypes";
-import { addUser, getRooms, getUsers } from "../../db/db";
+import { addRoom, addUser, getRooms, getUsers } from "../../db/db";
 import { TeamsFxContext } from "../../Context";
 import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
 
@@ -33,6 +33,7 @@ const useMainState: () => MainState = () => {
   );
 
   const { meInfo, myPresenceInfo, imgUrl } = data ?? {};
+  console.log("🚀 ~ file: Main.state.tsx:36 ~ meInfo:", meInfo);
 
   useEffect(() => {
     if (meInfo && myPresenceInfo && imgUrl) {
@@ -45,8 +46,21 @@ const useMainState: () => MainState = () => {
         isOutOfOffice: myPresenceInfo.outOfOfficeSettings.isOutOfOffice,
       };
       handleAddUser(user);
+
+      const personalRoom = {
+        id: `Personal-${user.id}`,
+        name: `${user.name}'s personal room`,
+        isPersonal: true,
+        attributes: {
+          iconKey: "",
+          roomImg: user.image,
+        },
+      };
+
+      handleAddRoom(personalRoom);
       setTimeout(() => {
         setUsers(getUsers());
+        setRooms(getRooms());
       }, 500);
     }
   }, [meInfo, myPresenceInfo, imgUrl]);
@@ -61,6 +75,19 @@ const useMainState: () => MainState = () => {
       isOutOfOffice: joinedUser.isOutOfOffice,
     };
     addUser(newUser);
+  };
+
+  const handleAddRoom = (addedRoom: Room) => {
+    const newRoom: Room = {
+      id: addedRoom.id,
+      name: addedRoom.name,
+      isPersonal: addedRoom.isPersonal,
+      attributes: {
+        iconKey: addedRoom.attributes.iconKey,
+        roomImg: addedRoom.attributes.roomImg,
+      },
+    };
+    addRoom(newRoom);
   };
 
   return {

@@ -1,7 +1,11 @@
 import { DefaultButton, PrimaryButton, Stack } from "@fluentui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { generateFakeUsers, generateCommonRooms } from "../db/data";
+import {
+  generateFakeUsers,
+  generateCommonRooms,
+  generateFakePersonalRooms,
+} from "../db/data";
 import { Room, User } from "../db/dbTypes";
 import { addRoom, addUser, loadDatabase, saveDatabase } from "../db/db";
 import {
@@ -12,6 +16,7 @@ import {
 const SeedData = () => {
   const routeHistory = useNavigate();
   const fakeUsers = generateFakeUsers(6);
+  const fakePersonalRooms = generateFakePersonalRooms(fakeUsers);
   const fakeRooms = generateCommonRooms(6);
 
   const [fakeUsersAdded, setFakeUsersAdded] = useFakeUsersAdded();
@@ -30,7 +35,7 @@ const SeedData = () => {
     addUser(newUser);
   };
 
-  const handleAddFakeUsers = (fakeUsers: User[]) => {
+  const handleAddFakeUsers = (fakeUsers: User[], fakePersonalRooms: Room[]) => {
     fakeUsers.forEach((fakeUser) => {
       const user = {
         id: fakeUser.id,
@@ -41,6 +46,15 @@ const SeedData = () => {
         isOutOfOffice: fakeUser.isOutOfOffice,
       };
       handleAddFakeUser(user);
+    });
+    fakePersonalRooms.forEach((fakePersonalRoom) => {
+      const fakeRoom = {
+        id: fakePersonalRoom.id,
+        name: fakePersonalRoom.name,
+        isPersonal: fakePersonalRoom.isPersonal,
+        attributes: fakePersonalRoom.attributes,
+      };
+      handleAddFakeRoom(fakeRoom);
     });
     setFakeUsersAdded(true);
   };
@@ -119,7 +133,7 @@ const SeedData = () => {
         ) : (
           <PrimaryButton
             text="Add fake users"
-            onClick={() => handleAddFakeUsers(fakeUsers)}
+            onClick={() => handleAddFakeUsers(fakeUsers, fakePersonalRooms)}
             style={{
               padding: 5,
             }}

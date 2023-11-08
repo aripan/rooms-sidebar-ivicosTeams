@@ -1,4 +1,4 @@
-import { Stack, PrimaryButton } from "@fluentui/react";
+import { Stack, PrimaryButton, DefaultButton } from "@fluentui/react";
 import { DividerBox } from "rc-dock";
 import "rc-dock/dist/rc-dock.css";
 import { default as React, useEffect, useState } from "react";
@@ -36,17 +36,27 @@ const MainView: React.FC<MainState> = (props) => {
       style={{
         maxWidth: "100%",
         overflow: "hidden",
-        height: "100%",
-        margin: 20,
+        height: "100vh",
+        padding: 20,
       }}
     >
       <Stack
+        horizontal
+        tokens={{ childrenGap: 10 }}
         style={{
-          width: 150,
+          width: "auto",
           height: "auto",
           marginBottom: 10,
         }}
       >
+        <DefaultButton
+          onClick={() => {
+            routeHistory("/tab");
+          }}
+        >
+          Go back to dashboard
+        </DefaultButton>
+
         <PrimaryButton
           onClick={() => {
             routeHistory("/seedData");

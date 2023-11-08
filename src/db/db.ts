@@ -47,10 +47,13 @@ export const removeUser = (userId: string) => {
     saveDatabase(db);
 };
 
-export const addRoom = (room: Room): void => {
+export const addRoom = (newRoom: Room): void => {
     const db = loadDatabase();
-    db.rooms.push(room);
-    saveDatabase(db);
+    const roomExist = db.rooms.find(room => room.id === newRoom.id)
+    if (!roomExist) {
+        db.rooms.push(newRoom);
+        saveDatabase(db);
+    }
 };
 
 export const updateRoom = (roomId: string, updatedProps: any) => {

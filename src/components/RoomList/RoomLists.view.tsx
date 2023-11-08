@@ -53,9 +53,11 @@ const RoomListView: React.FC<any> = (props) => {
               marginBottom: 10,
             }}
           >
-            {rooms.map((room: Room) => (
-              <CommonRoom room={room} />
-            ))}
+            {rooms
+              .filter((room: Room) => !room.id.includes("Personal"))
+              .map((room: Room) => (
+                <CommonRoom room={room} />
+              ))}
           </Stack>
         </DividerBox>
       </Stack>
