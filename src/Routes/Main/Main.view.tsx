@@ -78,7 +78,7 @@ const MainView: React.FC<MainState> = (props) => {
           </Stack>
 
           <Stack style={mainViewContainerStyles}>
-            <Rooms />
+            <Rooms rooms={rooms} />
           </Stack>
         </DividerBox>
       ) : (

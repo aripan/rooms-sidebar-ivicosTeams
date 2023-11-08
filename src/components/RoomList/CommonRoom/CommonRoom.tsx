@@ -9,8 +9,16 @@ export interface ICommonRoomProps {
 
 const CommonRoom: React.FunctionComponent<ICommonRoomProps> = (props) => {
   const { room } = props;
+
   return (
-    <Stack>
+    <Stack
+      onClick={() => {
+        console.log("🚀 ~ file: CommonRoom.tsx:12 ~ room:", room);
+      }}
+      style={{
+        cursor: "pointer",
+      }}
+    >
       <CommonRoomHeader room={room} />
     </Stack>
   );

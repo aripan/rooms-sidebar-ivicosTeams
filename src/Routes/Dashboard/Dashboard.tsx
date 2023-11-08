@@ -1,8 +1,10 @@
 import React from "react";
 import DashboardView from "./Dashboard.view";
+import useDashboardState from "./Dashboard.state";
 
 const Dashboard: React.FC<{}> = () => {
-  return <DashboardView></DashboardView>;
+  const state = useDashboardState();
+  return <DashboardView {...state}></DashboardView>;
 };
 
 export default Dashboard;

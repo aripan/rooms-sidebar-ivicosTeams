@@ -1,15 +1,18 @@
 import { DefaultButton, Stack } from "@fluentui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCurrentUserInfo } from "../../shared-state/users/hooks";
+import { IDashboardState } from "./Dashboard.state";
 
-export interface IDashboardViewProps {
-  //   prop1: string;
-  //   prop2: string;
-  //   prop3: string;
-}
-
-const DashboardView: React.FunctionComponent<IDashboardViewProps> = (props) => {
+const DashboardView: React.FunctionComponent<IDashboardState> = (props) => {
+  const { currentUser } = props;
   const routeHistory = useNavigate();
+  const [, setCurrentUserInfo] = useCurrentUserInfo();
+
+  useEffect(() => {
+    currentUser && setCurrentUserInfo(currentUser);
+  }, [currentUser, setCurrentUserInfo]);
+
   return (
     <Stack
       horizontalAlign="center"
@@ -18,6 +21,7 @@ const DashboardView: React.FunctionComponent<IDashboardViewProps> = (props) => {
       }}
     >
       <h1>Dashboard</h1>
+      <h3>{currentUser?.name}</h3>
       <Stack
         style={{
           margin: "200px auto auto auto",
@@ -31,7 +35,7 @@ const DashboardView: React.FunctionComponent<IDashboardViewProps> = (props) => {
             fontSize: 18,
           }}
           onClick={() => {
-            routeHistory("/rooms/123");
+            routeHistory(`/rooms/${currentUser?.id}`);
           }}
         />
       </Stack>
