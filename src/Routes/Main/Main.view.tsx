@@ -17,13 +17,11 @@ const MainView: React.FC<MainState> = (props) => {
     width: "30%",
     height: "80vh",
     display: "block",
-    border: "2px solid red",
   };
 
   const mainViewContainerStyles = {
     width: "70%",
     height: "80vh",
-    border: "2px solid blue",
   };
 
   useEffect(() => {

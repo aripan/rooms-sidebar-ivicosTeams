@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Room } from "../../../db/dbTypes";
 import CommonRoomHeader from "./CommonRoomHeader";
 import { Stack } from "@fluentui/react";
+import { useNavigate } from "react-router-dom";
 
 export interface ICommonRoomProps {
   room: Room;
@@ -9,11 +10,12 @@ export interface ICommonRoomProps {
 
 const CommonRoom: React.FunctionComponent<ICommonRoomProps> = (props) => {
   const { room } = props;
+  const routeHistory = useNavigate();
 
   return (
     <Stack
       onClick={() => {
-        console.log("🚀 ~ file: CommonRoom.tsx:12 ~ room:", room);
+        routeHistory(`/rooms/${room?.id}`);
       }}
       style={{
         cursor: "pointer",

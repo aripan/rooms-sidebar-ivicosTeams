@@ -9,7 +9,13 @@ const RoomsView: React.FC<any> = (props) => {
 
   const roomToShow = rooms.find((room: any) => room.id.includes(roomId));
   return (
-    <Stack>
+    <Stack
+      style={{
+        height: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        borderRadius: "10px 10px 0 0",
+      }}
+    >
       <Room roomToShow={roomToShow} />
     </Stack>
   );

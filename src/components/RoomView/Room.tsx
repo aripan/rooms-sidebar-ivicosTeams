@@ -11,22 +11,24 @@ export const Room: React.FC<any> = (props) => {
         verticalAlign="center"
         style={{
           height: 40,
-          backgroundColor: "rgba(145, 234, 228, 0.4)",
+          backgroundColor: "rgba(145, 234, 228, 0.9)",
           padding: 10,
+          borderRadius: "8px 8px 0 0",
         }}
       >
         <Text>{roomToShow?.name}</Text>
       </Stack>
       <Stack
-        horizontal
         horizontalAlign="center"
         verticalAlign="center"
-        style={{ marginTop: 100 }}
+        style={{
+          marginTop: 120,
+        }}
       >
         <Image
           src={roomToShow?.attributes?.roomImg}
-          width={300}
-          height={300}
+          width={350}
+          height={350}
           style={{
             borderRadius: "50%",
           }}
