@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Room, User } from "../../db/dbTypes";
 import { addUser, getRooms, getUsers } from "../../db/db";
-import { TeamsFxContext } from "../Context";
-import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
+import { TeamsFxContext } from "../../Context";
+import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
 
 export interface MainState {
   users: User[];

@@ -24,7 +24,6 @@ export const getRooms = (): Room[] => {
 export const addUser = (newUser: User): void => {
     const db = loadDatabase();
     const userExist = db.users.find(user => user.id === newUser.id)
-    console.log("🚀 ~ file: db.ts:27 ~ addUser ~ userExist:", userExist)
     if (!userExist) {
         db.users.push(newUser);
         saveDatabase(db);

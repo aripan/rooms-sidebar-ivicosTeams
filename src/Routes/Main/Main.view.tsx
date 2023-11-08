@@ -2,19 +2,15 @@ import { Stack, PrimaryButton } from "@fluentui/react";
 import { DividerBox } from "rc-dock";
 import "rc-dock/dist/rc-dock.css";
 import { default as React, useEffect, useState } from "react";
-import SideBar from "../SideBar/SideBar";
-import RoomList from "../RoomList/RoomList";
-import Rooms from "../RoomView/Rooms";
+import SideBar from "../../components/SideBar/SideBar";
+import RoomList from "../../components/RoomList/RoomList";
+import Rooms from "../../components/RoomView/Rooms";
 import { MainState } from "./Main.state";
 import { useNavigate } from "react-router-dom";
 
 const MainView: React.FC<MainState> = (props) => {
-  console.log("🚀 ~ file: Main.view.tsx:12 ~ props:", props);
-
   const routeHistory = useNavigate();
-
   const { users, rooms } = props;
-
   const [showStructure, setShowStructure] = useState(false);
 
   const sideBarContainerStyles = {

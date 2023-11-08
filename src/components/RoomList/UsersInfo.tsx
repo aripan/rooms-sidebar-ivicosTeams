@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 
 import { Person, PersonViewType } from "@microsoft/mgt-react";
-import { TeamsFxContext } from "../Context";
-import { useAzureFunctionData } from "../HandleAzureFunctionalities/hooks";
+import { TeamsFxContext } from "../../Context";
+import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
 import { Stack } from "@fluentui/react";
 import { Persona } from "@fluentui/react-components";
 import { UserPersona } from "./UserPersona";

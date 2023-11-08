@@ -14,12 +14,12 @@ import {
   Routes,
 } from "react-router-dom";
 import { useTeamsUserCredential } from "@microsoft/teamsfx-react";
-import Privacy from "./Privacy";
-import TermsOfUse from "./TermsOfUse";
-import Tab from "./Tab";
+import Privacy from "./Routes/Privacy";
+import TermsOfUse from "./Routes/TermsOfUse";
+import Tab from "./Routes/Tab";
 import { TeamsFxContext } from "./Context";
 import config from "./config/config";
-import SeedData from "./SeedData";
+import SeedData from "./Routes/SeedData";
 
 /**
  * The main app which handles the initialization and routing
