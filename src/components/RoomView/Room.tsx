@@ -1,8 +1,28 @@
 import * as React from "react";
 import { Image, Stack, Text } from "@fluentui/react";
+import {
+  useCurrentUserInfo,
+  useUsersInCommonRoom,
+} from "../../shared-state/users/hooks";
+import { useNavigate } from "react-router-dom";
 
 export const Room: React.FC<any> = (props) => {
   const { roomToShow } = props;
+  const routeHistory = useNavigate();
+  const [currentUserInfo] = useCurrentUserInfo();
+  const [usersInCommonRoom, setUsersInCommonRoom] = useUsersInCommonRoom();
+
+  const handleGoBackToPersonalRoom = () => {
+    const userToGoBack = usersInCommonRoom.find(
+      (user) => user.id === currentUserInfo?.id
+    );
+    if (userToGoBack) {
+      setUsersInCommonRoom(
+        usersInCommonRoom.filter((user) => user.id !== userToGoBack.id)
+      );
+      routeHistory(`/rooms/${currentUserInfo?.id}`);
+    }
+  };
 
   return (
     <Stack>
@@ -19,17 +39,17 @@ export const Room: React.FC<any> = (props) => {
         }}
       >
         <Text>{roomToShow?.name}</Text>
-        <Text
-          style={{
-            color: "purple",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            console.log("click clicked");
-          }}
-        >
-          Go Back
-        </Text>
+        {!roomToShow?.id.includes(currentUserInfo?.id) && (
+          <Text
+            style={{
+              color: "purple",
+              cursor: "pointer",
+            }}
+            onClick={handleGoBackToPersonalRoom}
+          >
+            Go Back
+          </Text>
+        )}
       </Stack>
       <Stack
         horizontalAlign="center"

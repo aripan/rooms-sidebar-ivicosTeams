@@ -3,12 +3,16 @@ import { User } from "../../db/dbTypes";
 import { addUser, getUsers } from "../../db/db";
 import { TeamsFxContext } from "../../Context";
 import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
+import { useLocation } from "react-router-dom";
+import { useUsersInCommonRoom } from "../../shared-state/users/hooks";
 
 export interface IDashboardState {
   currentUser: User | undefined;
 }
 
 const useDashboardState: () => IDashboardState = () => {
+  const [usersInCommonRoom, setUsersInCommonRoom] = useUsersInCommonRoom();
+  const { pathname } = useLocation();
   const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
 
   const { teamsUserCredential } = useContext(TeamsFxContext);
@@ -37,6 +41,19 @@ const useDashboardState: () => IDashboardState = () => {
       setCurrentUser(user);
     }
   }, [meInfo, myPresenceInfo, imgUrl]);
+
+  useEffect(() => {
+    if (!pathname.includes("/rooms/")) {
+      const userToGoBack = usersInCommonRoom.find(
+        (user) => user.id === currentUser?.id
+      );
+      if (userToGoBack) {
+        setUsersInCommonRoom(
+          usersInCommonRoom.filter((user) => user.id !== userToGoBack.id)
+        );
+      }
+    }
+  }, [currentUser?.id, pathname, setUsersInCommonRoom, usersInCommonRoom]);
 
   return {
     currentUser,
