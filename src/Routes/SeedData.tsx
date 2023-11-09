@@ -1,4 +1,4 @@
-import { DefaultButton, PrimaryButton, Stack } from "@fluentui/react";
+import { DefaultButton, PrimaryButton, Stack, Text } from "@fluentui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -97,73 +97,107 @@ const SeedData = () => {
     setFakeRoomsAdded(false);
   };
 
+  const handleClearDB = () => {
+    const db = loadDatabase();
+    db.users = [];
+    db.rooms = [];
+    saveDatabase(db);
+    setFakeUsersAdded(false);
+    setFakeRoomsAdded(false);
+  };
+
   return (
-    <Stack>
+    <Stack
+      style={{
+        height: "100vh",
+      }}
+    >
       <Stack
+        horizontal
         style={{
-          width: 150,
-          height: "auto",
-          margin: 10,
+          margin: "10px auto",
         }}
       >
-        <DefaultButton
-          text="Go Back"
-          onClick={() => {
-            routeHistory("/tab");
-          }}
-        />
+        <Text variant="xLargePlus">SeedData</Text>
       </Stack>
 
-      <h1>SeedData</h1>
-      <Stack
-        style={{
-          width: 150,
-          height: 30,
-          margin: 10,
+      <DefaultButton
+        text="Go Back"
+        onClick={() => {
+          routeHistory("/tab");
         }}
-      >
-        {fakeUsersAdded ? (
-          <DefaultButton
-            text="Remove fake users"
-            onClick={handleRemoveFakeUsers}
-            style={{
-              padding: 5,
-            }}
-          />
-        ) : (
-          <PrimaryButton
-            text="Add fake users"
-            onClick={() => handleAddFakeUsers(fakeUsers, fakePersonalRooms)}
-            style={{
-              padding: 5,
-            }}
-          />
-        )}
-      </Stack>
-      <Stack
         style={{
-          width: 150,
-          height: 30,
           margin: 10,
+          width: 150,
         }}
-      >
-        {fakeRoomsAdded ? (
+      />
+
+      <Stack horizontal horizontalAlign="center">
+        <Stack
+          style={{
+            width: 150,
+            height: 30,
+            margin: 10,
+          }}
+        >
+          {fakeUsersAdded ? (
+            <DefaultButton
+              text="Remove fake users"
+              onClick={handleRemoveFakeUsers}
+              style={{
+                padding: 5,
+              }}
+            />
+          ) : (
+            <PrimaryButton
+              text="Add fake users"
+              onClick={() => handleAddFakeUsers(fakeUsers, fakePersonalRooms)}
+              style={{
+                padding: 5,
+              }}
+            />
+          )}
+        </Stack>
+        <Stack
+          style={{
+            width: 150,
+            height: 30,
+            margin: 10,
+          }}
+        >
+          {fakeRoomsAdded ? (
+            <DefaultButton
+              text="Remove fake rooms"
+              onClick={handleRemoveFakeRooms}
+              style={{
+                padding: 5,
+              }}
+            />
+          ) : (
+            <PrimaryButton
+              text="Add fake rooms"
+              onClick={() => handleAddFakeRooms(fakeRooms)}
+              style={{
+                padding: 5,
+              }}
+            />
+          )}
+        </Stack>
+        <Stack
+          style={{
+            width: 150,
+            height: 30,
+            margin: 10,
+          }}
+        >
           <DefaultButton
-            text="Remove fake rooms"
-            onClick={handleRemoveFakeRooms}
+            text="Clear DB"
+            onClick={handleClearDB}
             style={{
               padding: 5,
             }}
           />
-        ) : (
-          <PrimaryButton
-            text="Add fake rooms"
-            onClick={() => handleAddFakeRooms(fakeRooms)}
-            style={{
-              padding: 5,
-            }}
-          />
-        )}
+        </Stack>
       </Stack>
     </Stack>
   );

@@ -1,4 +1,4 @@
-import { DefaultButton, Stack } from "@fluentui/react";
+import { DefaultButton, Image, Stack, Text } from "@fluentui/react";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUserInfo } from "../../shared-state/users/hooks";
@@ -21,23 +21,28 @@ const DashboardView: React.FunctionComponent<IDashboardState> = (props) => {
       }}
     >
       <h1>Dashboard</h1>
-      <h3>{currentUser?.name}</h3>
+      <h2>{currentUser?.name}</h2>
+
       <Stack
         style={{
-          margin: "200px auto auto auto",
+          margin: "180px auto auto auto",
         }}
       >
-        <DefaultButton
-          text="Enter to the Area"
-          style={{
-            width: 250,
-            height: 200,
-            fontSize: 18,
-          }}
-          onClick={() => {
-            routeHistory(`/rooms/${currentUser?.id}`);
-          }}
-        />
+        {currentUser ? (
+          <DefaultButton
+            text="Enter to the Area"
+            style={{
+              width: 250,
+              height: 200,
+              fontSize: 18,
+            }}
+            onClick={() => {
+              routeHistory(`/rooms/${currentUser?.id}`);
+            }}
+          />
+        ) : (
+          <Text variant="xLargePlus">Loading...</Text>
+        )}
       </Stack>
     </Stack>
   );

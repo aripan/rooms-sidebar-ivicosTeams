@@ -33,7 +33,7 @@ export const generateCommonRooms = (amountOfRooms: number): any[] => {
         isPersonal: false,
         attributes: {
             iconKey: roomIcons[Math.floor(Math.random() * roomIcons.length)],
-            roomImg: faker.image.avatar()
+            roomImg: faker.image.urlLoremFlickr({'category': 'nature'})
         }
     }));
 };
