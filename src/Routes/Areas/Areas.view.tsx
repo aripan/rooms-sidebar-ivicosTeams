@@ -1,10 +1,10 @@
-import { DefaultButton, Image, Stack, Text } from "@fluentui/react";
+import { DefaultButton, Stack, Text } from "@fluentui/react";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUserInfo } from "../../shared-state/users/hooks";
-import { IDashboardState } from "./Dashboard.state";
+import { IAreasState } from "./Areas.state";
 
-const DashboardView: React.FunctionComponent<IDashboardState> = (props) => {
+const AreasView: React.FunctionComponent<IAreasState> = (props) => {
   const { currentUser } = props;
   const routeHistory = useNavigate();
   const [, setCurrentUserInfo] = useCurrentUserInfo();
@@ -20,7 +20,7 @@ const DashboardView: React.FunctionComponent<IDashboardState> = (props) => {
         height: "100vh",
       }}
     >
-      <h1>Dashboard</h1>
+      <h1>Areas</h1>
       <h2>{currentUser?.name}</h2>
 
       <Stack
@@ -30,7 +30,7 @@ const DashboardView: React.FunctionComponent<IDashboardState> = (props) => {
       >
         {currentUser ? (
           <DefaultButton
-            text="Enter to the Area"
+            text="Main Area"
             style={{
               width: 250,
               height: 200,
@@ -47,4 +47,4 @@ const DashboardView: React.FunctionComponent<IDashboardState> = (props) => {
     </Stack>
   );
 };
-export default DashboardView;
+export default AreasView;

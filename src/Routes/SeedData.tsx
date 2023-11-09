@@ -1,11 +1,4 @@
-import {
-  DefaultButton,
-  IconButton,
-  PrimaryButton,
-  Stack,
-  Text,
-} from "@fluentui/react";
-import React, { useState } from "react";
+import { DefaultButton, PrimaryButton, Stack, Text } from "@fluentui/react";
 import { useNavigate } from "react-router-dom";
 import {
   generateFakeUsers,

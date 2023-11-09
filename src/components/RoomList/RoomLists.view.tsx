@@ -1,8 +1,8 @@
-import { Stack, Text } from "@fluentui/react";
+import { Stack } from "@fluentui/react";
 import { DividerBox } from "rc-dock";
 import "rc-dock/dist/rc-dock.css";
 import React from "react";
-import { PersonalRoom } from "./PersonalRoom";
+import { PersonalRoom } from "./PersonalRoom/PersonalRoom";
 import { Room, User } from "../../db/dbTypes";
 import CommonRoom from "./CommonRoom/CommonRoom";
 import { useUsersInCommonRoom } from "../../shared-state/users/hooks";

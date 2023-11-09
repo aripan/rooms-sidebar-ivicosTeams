@@ -1,4 +1,4 @@
-import { Stack, Text } from "@fluentui/react";
+import { Stack } from "@fluentui/react";
 import React from "react";
 import { Room } from "./Room";
 import { useParams } from "react-router-dom";

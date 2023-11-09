@@ -1,11 +1,10 @@
 import { Stack } from "@fluentui/react";
-import Main from "./Main/Main";
-import Dashboard from "./Dashboard/Dashboard";
+import Areas from "./Areas/Areas";
 
 export default function Tab() {
   return (
     <Stack>
-      <Dashboard />
+      <Areas />
     </Stack>
   );
 }

@@ -52,7 +52,7 @@ const MainView: React.FC<MainState> = (props) => {
             routeHistory("/tab");
           }}
         >
-          Go back to dashboard
+          Go Back to Areas
         </DefaultButton>
 
         <PrimaryButton

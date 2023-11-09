@@ -1,16 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { User } from "../../db/dbTypes";
-import { addUser, getUsers } from "../../db/db";
 import { TeamsFxContext } from "../../Context";
 import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
 import { useLocation } from "react-router-dom";
 import { useUsersInCommonRoom } from "../../shared-state/users/hooks";
 
-export interface IDashboardState {
+export interface IAreasState {
   currentUser: User | undefined;
 }
 
-const useDashboardState: () => IDashboardState = () => {
+const useAreasState: () => IAreasState = () => {
   const [usersInCommonRoom, setUsersInCommonRoom] = useUsersInCommonRoom();
   const { pathname } = useLocation();
   const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
@@ -60,4 +59,4 @@ const useDashboardState: () => IDashboardState = () => {
   };
 };
 
-export default useDashboardState;
+export default useAreasState;

@@ -36,9 +36,12 @@ const CommonRoom: React.FunctionComponent<ICommonRoomProps> = (props) => {
         cursor: "pointer",
       }}
     >
-      <CommonRoomHeader room={room} />
+      <CommonRoomHeader room={room} isUserInsideTheRoom={isUserInsideTheRoom} />
       {isUserInsideTheRoom && (
-        <CommonRoomUsers usersInsideTheRoom={usersInsideTheRoom} />
+        <CommonRoomUsers
+          usersInsideTheRoom={usersInsideTheRoom}
+          isUserInsideTheRoom={isUserInsideTheRoom}
+        />
       )}
     </Stack>
   );
