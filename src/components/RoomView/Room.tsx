@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Image, Stack, Text } from "@fluentui/react";
+import { Icon, Image, Stack, Text } from "@fluentui/react";
 import {
   useCurrentUserInfo,
   useUsersInCommonRoom,
@@ -40,15 +40,15 @@ export const Room: React.FC<any> = (props) => {
       >
         <Text>{roomToShow?.name}</Text>
         {!roomToShow?.id.includes(currentUserInfo?.id) && (
-          <Text
+          <Icon
+            iconName="OutOfOffice"
             style={{
-              color: "purple",
               cursor: "pointer",
+              color: "#000",
+              fontSize: 20,
             }}
             onClick={handleGoBackToPersonalRoom}
-          >
-            Go Back
-          </Text>
+          />
         )}
       </Stack>
       <Stack

@@ -21,7 +21,10 @@ import { TeamsFxContext } from "./Context";
 import config from "./config/config";
 import SeedData from "./Routes/SeedData";
 import Main from "./Routes/Main/Main";
+import { initializeIcons } from "@fluentui/font-icons-mdl2";
 
+// This registers icons and pulls the fonts from the default SharePoint CDN:
+initializeIcons();
 /**
  * The main app which handles the initialization and routing
  * of the app.

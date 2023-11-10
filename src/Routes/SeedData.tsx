@@ -1,4 +1,10 @@
-import { DefaultButton, PrimaryButton, Stack, Text } from "@fluentui/react";
+import {
+  DefaultButton,
+  Icon,
+  PrimaryButton,
+  Stack,
+  Text,
+} from "@fluentui/react";
 import { useNavigate } from "react-router-dom";
 import {
   generateFakeUsers,
@@ -183,19 +189,31 @@ const SeedData = () => {
           )}
         </Stack>
         <Stack
+          horizontal
+          tokens={{ childrenGap: 5 }}
           style={{
-            width: 150,
-            height: 30,
-            margin: 10,
+            margin: "14px 10px 0 10px",
+            cursor: "pointer",
           }}
+          onClick={handleClearDB}
         >
-          <DefaultButton
-            text="Clear DB"
-            onClick={handleClearDB}
+          <Icon
+            iconName="Cancel"
             style={{
-              padding: 5,
+              cursor: "pointer",
+              color: "red",
+              fontSize: 25,
+              fontWeight: 700,
             }}
           />
+          <Text
+            variant="large"
+            style={{
+              fontWeight: 700,
+            }}
+          >
+            Clear DB
+          </Text>
         </Stack>
       </Stack>
     </Stack>
