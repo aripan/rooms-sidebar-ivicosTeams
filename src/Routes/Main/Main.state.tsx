@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Room, User } from "../../db/dbTypes";
 import { addRoom, addUser, getRooms, getUsers } from "../../db/db";
 import { useCurrentUserInfo } from "../../shared-state/users/hooks";
+import { daysBefore } from "../../db/dates";
 
 export interface MainState {
   users: User[];
@@ -28,11 +29,17 @@ const useMainState: () => MainState = () => {
       const personalRoom = {
         id: `Personal-${currentUserInfo.id}`,
         name: `${currentUserInfo.name}'s personal room`,
+        area_id: "",
+        team_id: "",
+        channel_id: "",
         isPersonal: true,
         attributes: {
-          iconKey: "",
+          icon: "",
           roomImg: currentUserInfo.image,
         },
+        archived: false,
+        created_at: daysBefore(3),
+        updated_at: daysBefore(1),
       };
 
       handleAddRoom(personalRoom);
@@ -46,11 +53,19 @@ const useMainState: () => MainState = () => {
   const handleAddUser = (joinedUser: User) => {
     const newUser: User = {
       id: joinedUser.id,
+      org_id: joinedUser.org_id,
       name: joinedUser.name,
+      language: joinedUser.language,
       email: joinedUser.email,
       image: joinedUser.image,
-      presence: joinedUser.presence,
-      isOutOfOffice: joinedUser.isOutOfOffice,
+      status: {
+        presence: joinedUser.status.presence,
+        isOutOfOffice: joinedUser.status.isOutOfOffice,
+      },
+      tabs: joinedUser.tabs,
+      archived: joinedUser.archived,
+      created_at: joinedUser.created_at,
+      updated_at: joinedUser.updated_at,
     };
     addUser(newUser);
   };
@@ -59,11 +74,17 @@ const useMainState: () => MainState = () => {
     const newRoom: Room = {
       id: addedRoom.id,
       name: addedRoom.name,
+      area_id: addedRoom.area_id,
+      team_id: addedRoom.team_id,
+      channel_id: addedRoom.channel_id,
       isPersonal: addedRoom.isPersonal,
       attributes: {
-        iconKey: addedRoom.attributes.iconKey,
+        icon: addedRoom.attributes.icon,
         roomImg: addedRoom.attributes.roomImg,
       },
+      archived: addedRoom.archived,
+      created_at: addedRoom.created_at,
+      updated_at: addedRoom.updated_at,
     };
     addRoom(newRoom);
   };

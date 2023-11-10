@@ -36,8 +36,8 @@ const CommonRoomUsers: React.FunctionComponent<ICommonRoomUsersProps> = (
         <UserPersona
           name={user.name}
           imageUrl={user.image}
-          presenceStatus={user.presence}
-          outOfOfficeStatus={user.isOutOfOffice}
+          presenceStatus={user.status.presence}
+          outOfOfficeStatus={user.status.isOutOfOffice}
         />
       ))}
     </Stack>

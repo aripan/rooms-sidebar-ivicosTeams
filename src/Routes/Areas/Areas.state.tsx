@@ -4,6 +4,7 @@ import { TeamsFxContext } from "../../Context";
 import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
 import { useLocation } from "react-router-dom";
 import { useUsersInCommonRoom } from "../../shared-state/users/hooks";
+import { daysBefore } from "../../db/dates";
 
 export interface IAreasState {
   currentUser: User | undefined;
@@ -31,11 +32,19 @@ const useAreasState: () => IAreasState = () => {
     if (meInfo && myPresenceInfo && imgUrl) {
       const user = {
         id: meInfo.id,
+        org_id: "",
         name: meInfo.displayName,
+        language: "",
         email: meInfo.mail,
         image: imgUrl,
-        presence: myPresenceInfo.availability.toLowerCase(),
-        isOutOfOffice: myPresenceInfo.outOfOfficeSettings.isOutOfOffice,
+        status: {
+          presence: myPresenceInfo.availability.toLowerCase(),
+          isOutOfOffice: myPresenceInfo.outOfOfficeSettings.isOutOfOffice,
+        },
+        tabs: [],
+        archived: false,
+        created_at: daysBefore(3),
+        updated_at: daysBefore(1),
       };
       setCurrentUser(user);
     }

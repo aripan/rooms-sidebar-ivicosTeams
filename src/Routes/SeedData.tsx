@@ -31,11 +31,19 @@ const SeedData = () => {
   const handleAddFakeUser = (joinedUser: User) => {
     const newUser: User = {
       id: joinedUser.id,
+      org_id: "",
       name: joinedUser.name,
+      language: "en",
       email: joinedUser.email,
       image: joinedUser.image,
-      presence: joinedUser.presence,
-      isOutOfOffice: joinedUser.isOutOfOffice,
+      status: {
+        presence: joinedUser.status.presence,
+        isOutOfOffice: joinedUser.status.isOutOfOffice,
+      },
+      tabs: [],
+      archived: joinedUser.archived,
+      created_at: joinedUser.created_at,
+      updated_at: joinedUser.updated_at,
     };
     addUser(newUser);
   };
@@ -44,11 +52,19 @@ const SeedData = () => {
     fakeUsers.forEach((fakeUser) => {
       const user = {
         id: fakeUser.id,
+        org_id: "",
         name: fakeUser.name,
+        language: "en",
         email: fakeUser.email,
         image: fakeUser.image,
-        presence: fakeUser.presence,
-        isOutOfOffice: fakeUser.isOutOfOffice,
+        status: {
+          presence: fakeUser.status.presence,
+          isOutOfOffice: fakeUser.status.isOutOfOffice,
+        },
+        tabs: [],
+        archived: fakeUser.archived,
+        created_at: fakeUser.created_at,
+        updated_at: fakeUser.updated_at,
       };
       handleAddFakeUser(user);
     });
@@ -56,8 +72,17 @@ const SeedData = () => {
       const fakeRoom = {
         id: fakePersonalRoom.id,
         name: fakePersonalRoom.name,
+        area_id: fakePersonalRoom.area_id,
+        team_id: fakePersonalRoom.team_id,
+        channel_id: fakePersonalRoom.channel_id,
         isPersonal: fakePersonalRoom.isPersonal,
-        attributes: fakePersonalRoom.attributes,
+        attributes: {
+          icon: fakePersonalRoom.attributes.icon,
+          roomImg: fakePersonalRoom.attributes.roomImg,
+        },
+        archived: fakePersonalRoom.archived,
+        created_at: fakePersonalRoom.created_at,
+        updated_at: fakePersonalRoom.updated_at,
       };
       handleAddFakeRoom(fakeRoom);
     });
@@ -76,8 +101,17 @@ const SeedData = () => {
     const newRoom: Room = {
       id: room.id,
       name: room.name,
+      area_id: room.area_id,
+      team_id: room.team_id,
+      channel_id: room.channel_id,
       isPersonal: room.isPersonal,
-      attributes: room.attributes,
+      attributes: {
+        icon: room.attributes.icon,
+        roomImg: room.attributes.roomImg,
+      },
+      archived: room.archived,
+      created_at: room.created_at,
+      updated_at: room.updated_at,
     };
     addRoom(newRoom);
   };
@@ -87,8 +121,17 @@ const SeedData = () => {
       const room = {
         id: fakeRoom.id,
         name: fakeRoom.name,
+        area_id: fakeRoom.area_id,
+        team_id: fakeRoom.team_id,
+        channel_id: fakeRoom.channel_id,
         isPersonal: fakeRoom.isPersonal,
-        attributes: fakeRoom.attributes,
+        attributes: {
+          icon: fakeRoom.attributes.icon,
+          roomImg: fakeRoom.attributes.roomImg,
+        },
+        archived: fakeRoom.archived,
+        created_at: fakeRoom.created_at,
+        updated_at: fakeRoom.updated_at,
       };
       handleAddFakeRoom(room);
     });
