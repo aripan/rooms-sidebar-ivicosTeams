@@ -45,6 +45,8 @@ export default async function run(
         break;
       case "photo":
         const response = await graphClient.api("/me/photo/$value").get();
+        const response2 = await graphClient.api("/me/photo").get();
+        console.log("🚀 ~ file: index.ts:48 ~ response:", response2)
 
         // create the buffer from the Blob object
         const arrayBuffer = await response.arrayBuffer();

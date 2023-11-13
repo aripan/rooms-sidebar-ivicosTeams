@@ -23,7 +23,7 @@ export const PersonalRoom: React.FC<any> = ({ user }) => {
           padding: "5px 5px 5px 10px",
         }}
       >
-        {user.name}'s room
+        {user.name}'s personal room
       </Label>
       <UserPersona
         name={user.name}

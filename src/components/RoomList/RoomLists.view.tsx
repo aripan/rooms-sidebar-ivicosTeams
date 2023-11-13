@@ -9,6 +9,12 @@ import { useUsersInCommonRoom } from "../../shared-state/users/hooks";
 
 const RoomListView: React.FC<any> = (props) => {
   const { users, rooms } = props;
+  const personalRooms = rooms.filter((room: IRoom) =>
+    room.id.includes("Personal")
+  );
+  const commonRooms = rooms.filter(
+    (room: IRoom) => !room.id.includes("Personal")
+  );
   const [usersInCommonRoom] = useUsersInCommonRoom();
 
   return (
@@ -44,7 +50,11 @@ const RoomListView: React.FC<any> = (props) => {
                     margin: "5px 0",
                   }}
                 >
-                  <PersonalRoom user={user} />
+                  {personalRooms.map((room: IRoom) => {
+                    if (room.id.includes(user.id)) {
+                      return <PersonalRoom user={user} room={room} />;
+                    }
+                  })}
                 </Stack>
               ))}
           </Stack>
@@ -63,11 +73,9 @@ const RoomListView: React.FC<any> = (props) => {
               marginBottom: 10,
             }}
           >
-            {rooms
-              .filter((room: IRoom) => !room.id.includes("Personal"))
-              .map((room: IRoom) => (
-                <CommonRoom room={room} key={room.id} />
-              ))}
+            {commonRooms.map((room: IRoom) => (
+              <CommonRoom room={room} key={room.id} />
+            ))}
           </Stack>
         </DividerBox>
       </Stack>
