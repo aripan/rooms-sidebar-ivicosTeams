@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { Room, User } from "../../db/dbTypes";
+import { IRoom, IUser } from "../../db/dbTypes";
 import { addRoom, addUser, getRooms, getUsers } from "../../db/db";
 import { useCurrentUserInfo } from "../../shared-state/users/hooks";
 import { daysBefore } from "../../db/dates";
 
 export interface MainState {
-  users: User[];
-  rooms: Room[];
+  users: IUser[];
+  rooms: IRoom[];
 }
 
 const useMainState: () => MainState = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [rooms, setRooms] = useState<Room[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
+  const [rooms, setRooms] = useState<IRoom[]>([]);
   const [currentUserInfo] = useCurrentUserInfo();
 
   useEffect(() => {
@@ -50,8 +50,8 @@ const useMainState: () => MainState = () => {
     }
   }, [currentUserInfo]);
 
-  const handleAddUser = (joinedUser: User) => {
-    const newUser: User = {
+  const handleAddUser = (joinedUser: IUser) => {
+    const newUser: IUser = {
       id: joinedUser.id,
       org_id: joinedUser.org_id,
       name: joinedUser.name,
@@ -70,8 +70,8 @@ const useMainState: () => MainState = () => {
     addUser(newUser);
   };
 
-  const handleAddRoom = (addedRoom: Room) => {
-    const newRoom: Room = {
+  const handleAddRoom = (addedRoom: IRoom) => {
+    const newRoom: IRoom = {
       id: addedRoom.id,
       name: addedRoom.name,
       area_id: addedRoom.area_id,

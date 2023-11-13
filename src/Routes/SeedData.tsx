@@ -11,7 +11,7 @@ import {
   generateCommonRooms,
   generateFakePersonalRooms,
 } from "../db/data";
-import { Room, User } from "../db/dbTypes";
+import { IRoom, IUser } from "../db/dbTypes";
 import { addRoom, addUser, loadDatabase, saveDatabase } from "../db/db";
 import {
   useFakeRoomsAdded,
@@ -28,8 +28,8 @@ const SeedData = () => {
   const [fakeRoomsAdded, setFakeRoomsAdded] = useFakeRoomsAdded();
 
   // Users
-  const handleAddFakeUser = (joinedUser: User) => {
-    const newUser: User = {
+  const handleAddFakeUser = (joinedUser: IUser) => {
+    const newUser: IUser = {
       id: joinedUser.id,
       org_id: "",
       name: joinedUser.name,
@@ -48,7 +48,10 @@ const SeedData = () => {
     addUser(newUser);
   };
 
-  const handleAddFakeUsers = (fakeUsers: User[], fakePersonalRooms: Room[]) => {
+  const handleAddFakeUsers = (
+    fakeUsers: IUser[],
+    fakePersonalRooms: IRoom[]
+  ) => {
     fakeUsers.forEach((fakeUser) => {
       const user = {
         id: fakeUser.id,
@@ -97,8 +100,8 @@ const SeedData = () => {
   };
 
   // Rooms
-  const handleAddFakeRoom = (room: Room) => {
-    const newRoom: Room = {
+  const handleAddFakeRoom = (room: IRoom) => {
+    const newRoom: IRoom = {
       id: room.id,
       name: room.name,
       area_id: room.area_id,
@@ -116,7 +119,7 @@ const SeedData = () => {
     addRoom(newRoom);
   };
 
-  const handleAddFakeRooms = (fakeRooms: Room[]) => {
+  const handleAddFakeRooms = (fakeRooms: IRoom[]) => {
     fakeRooms.forEach((fakeRoom) => {
       const room = {
         id: fakeRoom.id,

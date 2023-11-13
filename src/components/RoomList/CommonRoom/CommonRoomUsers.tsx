@@ -1,11 +1,11 @@
 import { Stack } from "@fluentui/react";
 import React, { useEffect } from "react";
-import { User } from "../../../db/dbTypes";
+import { IUser } from "../../../db/dbTypes";
 import { UserPersona } from "../UserPersona";
 import { useUsersInCommonRoom } from "../../../shared-state/users/hooks";
 // Define the Props interface
 export interface ICommonRoomUsersProps {
-  usersInsideTheRoom?: User[];
+  usersInsideTheRoom?: IUser[];
   isUserInsideTheRoom?: boolean;
 }
 

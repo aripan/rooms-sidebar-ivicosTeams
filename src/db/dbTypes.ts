@@ -1,6 +1,6 @@
 // dbTypes.ts
 
-export interface Organization {
+export interface IOrganization {
   id: string;
   name: string;
   tenant_id: string;
@@ -8,7 +8,7 @@ export interface Organization {
   created_at: Date;
   updated_at: Date;
 }
-export interface Area {
+export interface IArea {
   id: string;
   name: string;
   organization_id: string;
@@ -17,7 +17,7 @@ export interface Area {
   created_at: Date;
   updated_at: Date;
 }
-export interface Room {
+export interface IRoom {
   id: string;
   name: string;
   area_id: string;
@@ -33,7 +33,7 @@ export interface Room {
   created_at: Date;
   updated_at: Date;
 }
-export interface User {
+export interface IUser {
   id: string;
   org_id: string;
   name: string;
@@ -52,8 +52,8 @@ export interface User {
 }
 
 export interface Database {
-  org: Organization;
-  areas: Area[];
-  rooms: Room[];
-  users: User[];
+  org: IOrganization;
+  areas: IArea[];
+  rooms: IRoom[];
+  users: IUser[];
 }

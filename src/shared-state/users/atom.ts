@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { User } from "../../db/dbTypes";
+import { IUser } from "../../db/dbTypes";
 
-export const aCurrentUserInfo = atom<User | undefined>({ key: 'aCurrentUserInfo', default: undefined });
-export const aUsersInCommonRoom = atom<User[]>({ key: 'aUsersInCommonRoom', default: [] });
+export const aCurrentUserInfo = atom<IUser | undefined>({ key: 'aCurrentUserInfo', default: undefined });
+export const aUsersInCommonRoom = atom<IUser[]>({ key: 'aUsersInCommonRoom', default: [] });

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Room, User } from "../../../db/dbTypes";
 import CommonRoomHeader from "./CommonRoomHeader";
 import { Stack } from "@fluentui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import CommonRoomUsers from "./CommonRoomUsers";
 import { useCurrentUserInfo } from "../../../shared-state/users/hooks";
+import { IRoom, IUser } from "../../../db/dbTypes";
 
 export interface ICommonRoomProps {
-  room: Room;
+  room: IRoom;
 }
 
 const CommonRoom: React.FunctionComponent<ICommonRoomProps> = (props) => {
@@ -16,7 +16,7 @@ const CommonRoom: React.FunctionComponent<ICommonRoomProps> = (props) => {
   const { roomId } = useParams();
   const [isUserInsideTheRoom, setIsUserInsideTheRoom] = useState(false);
   const [currentUserInfo] = useCurrentUserInfo();
-  const [usersInsideTheRoom, setUsersInsideTheRoom] = useState<User[]>([]);
+  const [usersInsideTheRoom, setUsersInsideTheRoom] = useState<IUser[]>([]);
 
   useEffect(() => {
     if (room && roomId && room.id === roomId && currentUserInfo) {

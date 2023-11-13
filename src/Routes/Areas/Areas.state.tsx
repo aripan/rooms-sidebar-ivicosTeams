@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { User } from "../../db/dbTypes";
+import { IUser } from "../../db/dbTypes";
 import { TeamsFxContext } from "../../Context";
 import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
 import { useLocation } from "react-router-dom";
@@ -7,13 +7,13 @@ import { useUsersInCommonRoom } from "../../shared-state/users/hooks";
 import { daysBefore } from "../../db/dates";
 
 export interface IAreasState {
-  currentUser: User | undefined;
+  currentUser: IUser | undefined;
 }
 
 const useAreasState: () => IAreasState = () => {
   const [usersInCommonRoom, setUsersInCommonRoom] = useUsersInCommonRoom();
   const { pathname } = useLocation();
-  const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
+  const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined);
 
   const { teamsUserCredential } = useContext(TeamsFxContext);
 

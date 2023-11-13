@@ -1,9 +1,9 @@
 import { Stack, Text } from "@fluentui/react";
 import React, { useState } from "react";
-import { Room } from "../../../db/dbTypes";
+import { IRoom } from "../../../db/dbTypes";
 
 export interface ICommonRoomHeaderProps {
-  room: Room;
+  room: IRoom;
   isUserInsideTheRoom?: boolean;
 }
 

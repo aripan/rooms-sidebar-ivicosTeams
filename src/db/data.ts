@@ -1,11 +1,11 @@
 import { faker } from '@faker-js/faker';
 import { daysBefore } from './dates';
-import { Area, Organization, Room, User } from './dbTypes';
+import { IArea, IOrganization, IRoom, IUser } from './dbTypes';
 
 const presenceStatus = ["unknown", "offline", "busy", "out-of-office", "away", "available", "do-not-disturb", "blocked"]
 const roomIcons = ['Cafe', 'Class', 'Desk', 'Meeting', 'Room', 'Lounge', 'Lobby', 'Bar', 'Lunch', 'Podcast', 'Gym'];
 
-export const generateFakeOrg = (name = 'Main Org', tenant_id: string, archived = false,): Organization => ({
+export const generateFakeOrg = (name = 'Main Org', tenant_id: string, archived = false,): IOrganization => ({
     id: faker.string.uuid(),
     name,
     tenant_id,
@@ -14,7 +14,7 @@ export const generateFakeOrg = (name = 'Main Org', tenant_id: string, archived =
     updated_at: daysBefore(1)
 });
 
-export const generateFakeAreas = (organization_id: string, amountOfAreas: number): Area[] => {
+export const generateFakeAreas = (organization_id: string, amountOfAreas: number): IArea[] => {
     return [...Array(amountOfAreas).keys()].map((key) => ({
         id: faker.string.uuid(),
         name: key === 0 ? 'Main Area' : `Area ${key + 1}`,
@@ -26,7 +26,7 @@ export const generateFakeAreas = (organization_id: string, amountOfAreas: number
     }));
 };
 
-export const generateFakeUsers = (amountOfUsers: number): User[] => {
+export const generateFakeUsers = (amountOfUsers: number): IUser[] => {
     return [...Array(amountOfUsers).keys()].map((key) => ({
         id: faker.string.uuid(),
         org_id: '',
@@ -45,7 +45,7 @@ export const generateFakeUsers = (amountOfUsers: number): User[] => {
     }));
 };
 
-export const generateFakePersonalRooms = (fakeUsers: any[]): Room[] => {
+export const generateFakePersonalRooms = (fakeUsers: any[]): IRoom[] => {
     return fakeUsers.map((fakeUser) => ({
         id: `Personal-${fakeUser.id}`,
         name: `${fakeUser.name}'s personal room`,
@@ -63,7 +63,7 @@ export const generateFakePersonalRooms = (fakeUsers: any[]): Room[] => {
     }));
 };
 
-export const generateCommonRooms = (amountOfRooms: number): Room[] => {
+export const generateCommonRooms = (amountOfRooms: number): IRoom[] => {
     return [...Array(amountOfRooms).keys()].map((key) => ({
         id: faker.string.uuid(),
         name: `Room ${key + 1}`,

@@ -3,7 +3,7 @@ import { DividerBox } from "rc-dock";
 import "rc-dock/dist/rc-dock.css";
 import React from "react";
 import { PersonalRoom } from "./PersonalRoom/PersonalRoom";
-import { Room, User } from "../../db/dbTypes";
+import { IRoom, IUser } from "../../db/dbTypes";
 import CommonRoom from "./CommonRoom/CommonRoom";
 import { useUsersInCommonRoom } from "../../shared-state/users/hooks";
 
@@ -32,12 +32,12 @@ const RoomListView: React.FC<any> = (props) => {
           >
             {users
               .filter(
-                (user: User) =>
+                (user: IUser) =>
                   !usersInCommonRoom.some(
                     (commonUser) => commonUser.id === user.id
                   )
               )
-              .map((user: User) => (
+              .map((user: IUser) => (
                 <Stack
                   key={user.id}
                   style={{
@@ -64,8 +64,8 @@ const RoomListView: React.FC<any> = (props) => {
             }}
           >
             {rooms
-              .filter((room: Room) => !room.id.includes("Personal"))
-              .map((room: Room) => (
+              .filter((room: IRoom) => !room.id.includes("Personal"))
+              .map((room: IRoom) => (
                 <CommonRoom room={room} key={room.id} />
               ))}
           </Stack>

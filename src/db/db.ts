@@ -1,4 +1,4 @@
-import { Database, User, Room } from './dbTypes';
+import { Database, IRoom, IUser, } from './dbTypes';
 
 const DATABASE_KEY = 'myDatabase';
 
@@ -11,17 +11,17 @@ export const saveDatabase = (db: Database): void => {
     localStorage.setItem(DATABASE_KEY, JSON.stringify(db));
 };
 
-export const getUsers = (): User[] => {
+export const getUsers = (): IUser[] => {
     const db = loadDatabase();
     return db.users;
 };
 
-export const getRooms = (): Room[] => {
+export const getRooms = (): IRoom[] => {
     const db = loadDatabase();
     return db.rooms;
 };
 
-export const addUser = (newUser: User): void => {
+export const addUser = (newUser: IUser): void => {
     const db = loadDatabase();
     const userExist = db.users.find(user => user.id === newUser.id)
     if (!userExist) {
@@ -47,7 +47,7 @@ export const removeUser = (userId: string) => {
     saveDatabase(db);
 };
 
-export const addRoom = (newRoom: Room): void => {
+export const addRoom = (newRoom: IRoom): void => {
     const db = loadDatabase();
     const roomExist = db.rooms.find(room => room.id === newRoom.id)
     if (!roomExist) {
