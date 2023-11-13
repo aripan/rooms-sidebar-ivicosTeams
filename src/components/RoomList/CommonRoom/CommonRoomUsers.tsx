@@ -3,16 +3,19 @@ import React, { useEffect } from "react";
 import { IUser } from "../../../db/dbTypes";
 import { UserPersona } from "../UserPersona";
 import { useUsersInCommonRoom } from "../../../shared-state/users/hooks";
+import { IRoomAction } from "../helpers/roomHooks";
+import { IC } from "../../../Kits/SVGIcon";
 // Define the Props interface
 export interface ICommonRoomUsersProps {
   usersInsideTheRoom?: IUser[];
   isUserInsideTheRoom?: boolean;
+  knockOnRoomAction: IRoomAction;
 }
 
 const CommonRoomUsers: React.FunctionComponent<ICommonRoomUsersProps> = (
   props
 ) => {
-  const { usersInsideTheRoom, isUserInsideTheRoom } = props;
+  const { usersInsideTheRoom, isUserInsideTheRoom, knockOnRoomAction } = props;
   const [usersInCommonRoom, setUsersInCommonRoom] = useUsersInCommonRoom();
 
   useEffect(() => {
@@ -33,12 +36,32 @@ const CommonRoomUsers: React.FunctionComponent<ICommonRoomUsersProps> = (
       }}
     >
       {usersInCommonRoom?.map((user) => (
-        <UserPersona
-          name={user.name}
-          imageUrl={user.image}
-          presenceStatus={user.status.presence}
-          outOfOfficeStatus={user.status.isOutOfOffice}
-        />
+        <Stack horizontal horizontalAlign="space-between">
+          <UserPersona
+            name={user.name}
+            imageUrl={user.image}
+            presenceStatus={user.status.presence}
+            outOfOfficeStatus={user.status.isOutOfOffice}
+          />
+
+          <Stack
+            verticalAlign="center"
+            horizontalAlign="center"
+            style={{
+              height: 40,
+              width: 40,
+              marginTop: 8,
+              marginRight: 10,
+              borderRadius: "50%",
+              backgroundColor: "#479ef5",
+              cursor: "pointer",
+            }}
+          >
+            <IC size={24} variant="light">
+              {knockOnRoomAction.getSymbol && knockOnRoomAction.getSymbol()}
+            </IC>
+          </Stack>
+        </Stack>
       ))}
     </Stack>
   );
