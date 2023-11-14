@@ -6,13 +6,15 @@ import {
   Text,
 } from "@fluentui/react";
 import { useNavigate } from "react-router-dom";
-import {
-  generateFakeUsers,
-  generateCommonRooms,
-  generateFakePersonalRooms,
-} from "../db/data";
+import { generateFakeUsers, generateCommonRooms } from "../db/data";
 import { IRoom, IUser } from "../db/dbTypes";
-import { addRoom, addUser, loadDatabase, saveDatabase } from "../db/db";
+import {
+  DATABASE_KEY,
+  addRoom,
+  addUser,
+  loadDatabase,
+  saveDatabase,
+} from "../db/db";
 import {
   useFakeRoomsAdded,
   useFakeUsersAdded,
@@ -21,9 +23,7 @@ import {
 const SeedData = () => {
   const routeHistory = useNavigate();
   const fakeUsers = generateFakeUsers(6);
-  const fakePersonalRooms = generateFakePersonalRooms(fakeUsers);
   const fakeRooms = generateCommonRooms(6);
-
   const [fakeUsersAdded, setFakeUsersAdded] = useFakeUsersAdded();
   const [fakeRoomsAdded, setFakeRoomsAdded] = useFakeRoomsAdded();
 
@@ -31,16 +31,11 @@ const SeedData = () => {
   const handleAddFakeUser = (joinedUser: IUser) => {
     const newUser: IUser = {
       id: joinedUser.id,
-      org_id: "",
+      org_id: joinedUser.org_id,
       name: joinedUser.name,
-      language: "en",
+      language: joinedUser.language,
       email: joinedUser.email,
-      image: joinedUser.image,
-      status: {
-        presence: joinedUser.status.presence,
-        isOutOfOffice: joinedUser.status.isOutOfOffice,
-      },
-      tabs: [],
+      tabs: joinedUser.tabs,
       archived: joinedUser.archived,
       created_at: joinedUser.created_at,
       updated_at: joinedUser.updated_at,
@@ -48,47 +43,22 @@ const SeedData = () => {
     addUser(newUser);
   };
 
-  const handleAddFakeUsers = (
-    fakeUsers: IUser[],
-    fakePersonalRooms: IRoom[]
-  ) => {
+  const handleAddFakeUsers = (fakeUsers: IUser[]) => {
     fakeUsers.forEach((fakeUser) => {
       const user = {
         id: fakeUser.id,
-        org_id: "",
+        org_id: fakeUser.org_id,
         name: fakeUser.name,
-        language: "en",
+        language: fakeUser.language,
         email: fakeUser.email,
-        image: fakeUser.image,
-        status: {
-          presence: fakeUser.status.presence,
-          isOutOfOffice: fakeUser.status.isOutOfOffice,
-        },
-        tabs: [],
+        tabs: fakeUser.tabs,
         archived: fakeUser.archived,
         created_at: fakeUser.created_at,
         updated_at: fakeUser.updated_at,
       };
       handleAddFakeUser(user);
     });
-    fakePersonalRooms.forEach((fakePersonalRoom) => {
-      const fakeRoom = {
-        id: fakePersonalRoom.id,
-        name: fakePersonalRoom.name,
-        area_id: fakePersonalRoom.area_id,
-        team_id: fakePersonalRoom.team_id,
-        channel_id: fakePersonalRoom.channel_id,
-        isPersonal: fakePersonalRoom.isPersonal,
-        attributes: {
-          icon: fakePersonalRoom.attributes.icon,
-          roomImg: fakePersonalRoom.attributes.roomImg,
-        },
-        archived: fakePersonalRoom.archived,
-        created_at: fakePersonalRoom.created_at,
-        updated_at: fakePersonalRoom.updated_at,
-      };
-      handleAddFakeRoom(fakeRoom);
-    });
+
     setFakeUsersAdded(true);
   };
 
@@ -103,11 +73,9 @@ const SeedData = () => {
   const handleAddFakeRoom = (room: IRoom) => {
     const newRoom: IRoom = {
       id: room.id,
-      name: room.name,
       area_id: room.area_id,
       team_id: room.team_id,
       channel_id: room.channel_id,
-      isPersonal: room.isPersonal,
       attributes: {
         icon: room.attributes.icon,
         roomImg: room.attributes.roomImg,
@@ -123,11 +91,9 @@ const SeedData = () => {
     fakeRooms.forEach((fakeRoom) => {
       const room = {
         id: fakeRoom.id,
-        name: fakeRoom.name,
         area_id: fakeRoom.area_id,
         team_id: fakeRoom.team_id,
         channel_id: fakeRoom.channel_id,
-        isPersonal: fakeRoom.isPersonal,
         attributes: {
           icon: fakeRoom.attributes.icon,
           roomImg: fakeRoom.attributes.roomImg,
@@ -149,12 +115,7 @@ const SeedData = () => {
   };
 
   const handleClearDB = () => {
-    const db = loadDatabase();
-    db.users = [];
-    db.rooms = [];
-    saveDatabase(db);
-    setFakeUsersAdded(false);
-    setFakeRoomsAdded(false);
+    localStorage.removeItem(DATABASE_KEY);
   };
 
   return (
@@ -202,7 +163,7 @@ const SeedData = () => {
           ) : (
             <PrimaryButton
               text="Add fake users"
-              onClick={() => handleAddFakeUsers(fakeUsers, fakePersonalRooms)}
+              onClick={() => handleAddFakeUsers(fakeUsers)}
               style={{
                 padding: 5,
               }}

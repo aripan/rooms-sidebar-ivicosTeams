@@ -57,21 +57,35 @@ export default async function run(
         // sending it to frontend
         result = imageUrl
         break;
-      case "currentUserInfo":
-        const meInfo = await graphClient.api("/me").get();
-        const myPresenceInfo = await graphClient.api("/me/presence").version('beta').get();
-        const imgRes = await graphClient.api("/me/photo/$value").get();
+      case "photo-presence":
+        const presenceInfo = await graphClient.api("/me/presence").version('beta').get();
+        const imageRes = await graphClient.api("/me/photo/$value").get();
 
         // create the buffer from the Blob object
-        const imgArrayBuffer = await imgRes.arrayBuffer();
-        const imgBuffer = Buffer.from(imgArrayBuffer);
+        const imageArrayBuffer = await imageRes.arrayBuffer();
+        const imageBuffer = Buffer.from(imageArrayBuffer);
 
         // convert it to base64 and then to imageUrl
-        const imgBase64String = imgBuffer.toString('base64');
-        const imgUrl = 'data:image/jpeg;base64,' + imgBase64String;
+        const imageBase64String = imageBuffer.toString('base64');
+        const image = 'data:image/jpeg;base64,' + imageBase64String;
 
-        result = { meInfo, myPresenceInfo, imgUrl }
+        result = { image, presenceInfo}
         break;
+      // case "currentUserInfo":
+      //   const meInfo = await graphClient.api("/me").get();
+      //   const myPresenceInfo = await graphClient.api("/me/presence").version('beta').get();
+      //   const imgRes = await graphClient.api("/me/photo/$value").get();
+
+      //   // create the buffer from the Blob object
+      //   const imgArrayBuffer = await imgRes.arrayBuffer();
+      //   const imgBuffer = Buffer.from(imgArrayBuffer);
+
+      //   // convert it to base64 and then to imageUrl
+      //   const imgBase64String = imgBuffer.toString('base64');
+      //   const imgUrl = 'data:image/jpeg;base64,' + imgBase64String;
+
+      //   result = { meInfo, myPresenceInfo, imgUrl }
+      //   break;
       case "messages":
         result = await graphClient.api("/me/messages").get();
         break;

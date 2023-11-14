@@ -7,8 +7,8 @@ const roomIcons = ['Cafe', 'Class', 'Desk', 'Meeting', 'Room', 'Lounge', 'Lobby'
 
 export const generateFakeOrg = (name = 'Main Org', tenant_id: string, archived = false,): IOrganization => ({
     id: faker.string.uuid(),
-    name,
     tenant_id,
+    name,
     archived,
     created_at: daysBefore(3),
     updated_at: daysBefore(1)
@@ -17,9 +17,41 @@ export const generateFakeOrg = (name = 'Main Org', tenant_id: string, archived =
 export const generateFakeAreas = (organization_id: string, amountOfAreas: number): IArea[] => {
     return [...Array(amountOfAreas).keys()].map((key) => ({
         id: faker.string.uuid(),
-        name: key === 0 ? 'Main Area' : `Area ${key + 1}`,
         organization_id,
+        name: key === 0 ? 'Main Area' : `Area ${key + 1}`,
         icon: '',
+        archived: false,
+        created_at: daysBefore(3),
+        updated_at: daysBefore(1)
+    }));
+};
+
+// export const generateFakePersonalRooms = (fakeUsers: any[]): IRoom[] => {
+//     return fakeUsers.map((fakeUser) => ({
+//         id: `Personal-${fakeUser.id}`,
+//         area_id: '',
+//         team_id: '',
+//         channel_id: '',
+//         attributes: {
+//             icon: '',
+//             roomImg: fakeUser.image
+//         },
+//         archived: false,
+//         created_at: daysBefore(3),
+//         updated_at: daysBefore(1)
+//     }));
+// };
+
+export const generateCommonRooms = (amountOfRooms: number): IRoom[] => {
+    return [...Array(amountOfRooms).keys()].map((key) => ({
+        id: faker.string.uuid(),
+        area_id: '',
+        team_id: faker.string.uuid(),
+        channel_id: faker.string.uuid(),
+        attributes: {
+            icon: roomIcons[Math.floor(Math.random() * roomIcons.length)],
+            roomImg: faker.image.urlLoremFlickr({ 'category': 'nature' })
+        },
         archived: false,
         created_at: daysBefore(3),
         updated_at: daysBefore(1)
@@ -33,11 +65,6 @@ export const generateFakeUsers = (amountOfUsers: number): IUser[] => {
         name: faker.internet.userName(),
         language: 'en',
         email: faker.internet.email(),
-        image: faker.internet.avatar(),
-        status: {
-            presence: presenceStatus[Math.floor(Math.random() * presenceStatus.length)],
-            isOutOfOffice: false
-        },
         tabs: [],
         archived: false,
         created_at: daysBefore(3),
@@ -45,38 +72,3 @@ export const generateFakeUsers = (amountOfUsers: number): IUser[] => {
     }));
 };
 
-export const generateFakePersonalRooms = (fakeUsers: any[]): IRoom[] => {
-    return fakeUsers.map((fakeUser) => ({
-        id: `Personal-${fakeUser.id}`,
-        name: `${fakeUser.name}'s personal room`,
-        area_id: '',
-        team_id: '',
-        channel_id: '',
-        isPersonal: true,
-        attributes: {
-            icon: '',
-            roomImg: fakeUser.image
-        },
-        archived: false,
-        created_at: daysBefore(3),
-        updated_at: daysBefore(1)
-    }));
-};
-
-export const generateCommonRooms = (amountOfRooms: number): IRoom[] => {
-    return [...Array(amountOfRooms).keys()].map((key) => ({
-        id: faker.string.uuid(),
-        name: `Room ${key + 1}`,
-        area_id: '',
-        team_id: '',
-        channel_id: '',
-        isPersonal: false,
-        attributes: {
-            icon: roomIcons[Math.floor(Math.random() * roomIcons.length)],
-            roomImg: faker.image.urlLoremFlickr({ 'category': 'nature' })
-        },
-        archived: false,
-        created_at: daysBefore(3),
-        updated_at: daysBefore(1)
-    }));
-};

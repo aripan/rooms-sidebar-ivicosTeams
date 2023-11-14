@@ -5,12 +5,13 @@ import { useAzureFunctionData } from "../../HandleAzureFunctionalities/hooks";
 import { useLocation } from "react-router-dom";
 import { useUsersInCommonRoom } from "../../shared-state/users/hooks";
 import { daysBefore } from "../../db/dates";
+import { IOrgInfo } from "../Tab";
 
 export interface IAreasState {
   currentUser: IUser | undefined;
 }
 
-const useAreasState: () => IAreasState = () => {
+const useAreasState: (orgInfo: IOrgInfo) => IAreasState = (orgInfo) => {
   const [usersInCommonRoom, setUsersInCommonRoom] = useUsersInCommonRoom();
   const { pathname } = useLocation();
   const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined);
@@ -23,24 +24,17 @@ const useAreasState: () => IAreasState = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { loading, data, error, reload } = useAzureFunctionData(
     teamsUserCredential,
-    "userRoutes/currentUserInfo"
+    "userRoutes/me"
   );
 
-  const { meInfo, myPresenceInfo, imgUrl } = data ?? {};
-
   useEffect(() => {
-    if (meInfo && myPresenceInfo && imgUrl) {
+    if (data && orgInfo.id) {
       const user = {
-        id: meInfo.id,
-        org_id: "",
-        name: meInfo.displayName,
-        language: "",
-        email: meInfo.mail,
-        image: imgUrl,
-        status: {
-          presence: myPresenceInfo.availability.toLowerCase(),
-          isOutOfOffice: myPresenceInfo.outOfOfficeSettings.isOutOfOffice,
-        },
+        id: data.id,
+        org_id: orgInfo.id,
+        name: data.displayName,
+        language: "en",
+        email: data.mail,
         tabs: [],
         archived: false,
         created_at: daysBefore(3),
@@ -48,7 +42,7 @@ const useAreasState: () => IAreasState = () => {
       };
       setCurrentUser(user);
     }
-  }, [meInfo, myPresenceInfo, imgUrl]);
+  }, [data, orgInfo.id]);
 
   useEffect(() => {
     if (!pathname.includes("/rooms/")) {

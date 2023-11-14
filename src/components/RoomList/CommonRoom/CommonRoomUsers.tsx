@@ -39,9 +39,9 @@ const CommonRoomUsers: React.FunctionComponent<ICommonRoomUsersProps> = (
         <Stack horizontal horizontalAlign="space-between">
           <UserPersona
             name={user.name}
-            imageUrl={user.image}
-            presenceStatus={user.status.presence}
-            outOfOfficeStatus={user.status.isOutOfOffice}
+            imageUrl={""}
+            presenceStatus={"available"}
+            outOfOfficeStatus={false}
           />
 
           <Stack

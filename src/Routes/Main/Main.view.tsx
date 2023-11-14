@@ -7,6 +7,7 @@ import RoomList from "../../components/RoomList/RoomList";
 import Rooms from "../../components/RoomView/Rooms";
 import { MainState } from "./Main.state";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "@fluentui/react-components";
 
 const MainView: React.FC<MainState> = (props) => {
   const routeHistory = useNavigate();
@@ -80,7 +81,7 @@ const MainView: React.FC<MainState> = (props) => {
           </Stack>
         </DividerBox>
       ) : (
-        "Loading..."
+        <Spinner style={{ margin: 100 }} />
       )}
     </Stack>
   );

@@ -1,18 +1,25 @@
-import { Label, Stack } from "@fluentui/react";
+import { Label, Stack, Text } from "@fluentui/react";
 import { UserPersona } from "../UserPersona";
 import { useCurrentUserInfo } from "../../../shared-state/users/hooks";
-import { IRoom, IUser } from "../../../db/dbTypes";
-import { useRoomActions } from "../helpers/roomHooks";
-import { IC } from "../../../Kits/SVGIcon";
+import { IUser } from "../../../db/dbTypes";
+import { useAzureFunctionData } from "../../../HandleAzureFunctionalities/hooks";
+import { TeamsFxContext } from "../../../Context";
+import { useContext } from "react";
 
 export interface IPersonalRoom {
   user: IUser;
-  room: IRoom;
 }
-export const PersonalRoom: React.FC<IPersonalRoom> = ({ user, room }) => {
+export const PersonalRoom: React.FC<IPersonalRoom> = ({ user }) => {
   const [currentUserInfo] = useCurrentUserInfo();
   const isCurrentUser = currentUserInfo?.id === user.id;
-  const { knockOnRoomAction } = useRoomActions(room.id);
+
+  const { teamsUserCredential } = useContext(TeamsFxContext);
+  const { loading, data, error, reload } = useAzureFunctionData(
+    teamsUserCredential!,
+    "userRoutes/photo-presence"
+  );
+
+  const { image, presenceInfo } = data ?? {};
 
   return (
     <Stack
@@ -33,31 +40,16 @@ export const PersonalRoom: React.FC<IPersonalRoom> = ({ user, room }) => {
       >
         {user.name}'s personal room
       </Label>
-      <Stack horizontal horizontalAlign="space-between">
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
         <UserPersona
           name={user.name}
-          imageUrl={user.image}
-          presenceStatus={user.status.presence}
-          outOfOfficeStatus={user.status.isOutOfOffice}
+          imageUrl={image}
+          presenceStatus={presenceInfo.activity.toLowerCase()}
+          outOfOfficeStatus={presenceInfo.outOfOfficeSettings.isOutOfOffice}
         />
-        <Stack
-          verticalAlign="center"
-          horizontalAlign="center"
-          style={{
-            height: 40,
-            width: 40,
-            marginTop: 8,
-            marginRight: 10,
-            borderRadius: "50%",
-            backgroundColor: "#479ef5",
-            cursor: "pointer",
-          }}
-        >
-          <IC size={24} variant="light">
-            {knockOnRoomAction.getSymbol && knockOnRoomAction.getSymbol()}
-          </IC>
-        </Stack>
-      </Stack>
+      )}
     </Stack>
   );
 };

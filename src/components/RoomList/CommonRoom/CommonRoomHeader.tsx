@@ -28,7 +28,7 @@ const CommonRoomHeader: React.FunctionComponent<ICommonRoomHeaderProps> = ({
       onMouseLeave={() => setHover(false)}
     >
       <Stack>
-        <Text title={room.name}>{room.name}</Text>
+        <Text>No Name Now</Text>
       </Stack>
     </Stack>
   );

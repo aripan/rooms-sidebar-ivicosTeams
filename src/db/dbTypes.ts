@@ -2,16 +2,16 @@
 
 export interface IOrganization {
   id: string;
-  name: string;
   tenant_id: string;
+  name: string;
   archived: boolean;
   created_at: Date;
   updated_at: Date;
 }
 export interface IArea {
   id: string;
-  name: string;
   organization_id: string;
+  name: string;
   icon: string;
   archived: boolean;
   created_at: Date;
@@ -19,11 +19,9 @@ export interface IArea {
 }
 export interface IRoom {
   id: string;
-  name: string;
   area_id: string;
   team_id: string;
   channel_id: string;
-  isPersonal: boolean;
   attributes: {
     icon: string;
     roomImg: string;
@@ -39,11 +37,6 @@ export interface IUser {
   name: string;
   language: string;
   email: string;
-  image: string;
-  status: {
-    presence: string;
-    isOutOfOffice: boolean;
-  };
   tabs: string[];
   archived: boolean;
   created_at: Date;
