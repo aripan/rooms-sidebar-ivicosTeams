@@ -26,8 +26,6 @@ const usePersonalRoomViewState: (
     data && setUserImage(data);
   }, [data]);
 
-  console.log("🚀 ~ file: PersonalRoomView.state.tsx:18 ~ data:", typeof data);
-
   return { userImage };
 };
 

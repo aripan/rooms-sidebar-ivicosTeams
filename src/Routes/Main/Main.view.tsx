@@ -8,6 +8,7 @@ import { MainState } from "./Main.state";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@fluentui/react-components";
 import RoomView from "../../components/RoomView/RoomView";
+import CreateNewRoomButton from "../../components/RoomList/CommonRoom/CreateNewRoomButton/CreateNewRoomButton";
 
 const MainView: React.FC<MainState> = (props) => {
   const routeHistory = useNavigate();
@@ -73,6 +74,7 @@ const MainView: React.FC<MainState> = (props) => {
           <Stack style={sideBarContainerStyles}>
             <SideBar>
               <RoomList users={users} rooms={rooms} />
+              <CreateNewRoomButton />
             </SideBar>
           </Stack>
 

@@ -48,12 +48,10 @@ export default async function run(
         // create the buffer from the Blob object
         const imageArrayBuffer = await userPhoto.arrayBuffer();
         const imageBuffer = Buffer.from(imageArrayBuffer);
-
         // convert it to base64 and then to imageUrl
         const imageBase64String = imageBuffer.toString('base64');
         const image = 'data:image/jpeg;base64,' + imageBase64String;
         result = image
-        console.log("🚀 ~ file: index.ts:49 ~ userPhoto:", userPhoto)
       } else if (endpoint === 'message') {
         result = await graphClient.api("/me/messages").get();
       } else {
