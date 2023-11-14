@@ -60,7 +60,7 @@ export default function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/termsofuse" element={<TermsOfUse />} />
               <Route path="/tab" element={<Tab />} />
-              <Route path="/rooms/:roomId" element={<Main />} />
+              <Route path="/areas/:areaId/rooms/:roomId" element={<Main />} />
               <Route path="/seedData" element={<SeedData />} />
               <Route path="*" element={<Navigate to={"/tab"} />}></Route>
             </Routes>

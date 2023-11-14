@@ -38,22 +38,51 @@ export default async function run(
 
 
     let result: any;
-
-    switch (endpoint) {
-      case "users":
+    if (endpoint) {
+      if (endpoint === 'users') {
         const allUsers = await graphClient.api("/users").get();
         result = await allUsers.value
-        break;
-      case "messages":
+      } else if (endpoint.includes('user-photo-id')) {
+        const userId = endpoint.split('=')[1]
+        const userPhoto = await graphClient.api(`/users/${userId}/photo/$value`).get();
+        // create the buffer from the Blob object
+        const imageArrayBuffer = await userPhoto.arrayBuffer();
+        const imageBuffer = Buffer.from(imageArrayBuffer);
+
+        // convert it to base64 and then to imageUrl
+        const imageBase64String = imageBuffer.toString('base64');
+        const image = 'data:image/jpeg;base64,' + imageBase64String;
+        result = image
+        console.log("🚀 ~ file: index.ts:49 ~ userPhoto:", userPhoto)
+      } else if (endpoint === 'message') {
         result = await graphClient.api("/me/messages").get();
-        break;
-      // Add more cases as needed
-      default:
+      } else {
         context.res = {
           status: 400,
           body: "Unsupported endpoint"
         };
+      }
     }
+
+    // switch (endpoint) {
+    //   case "users":
+    //     const allUsers = await graphClient.api("/users").get();
+    //     result = await allUsers.value
+    //     break;
+    //   case endpoint.includes('user-photo-id'):
+    //     const allUsers = await graphClient.api("/users").get();
+    //     result = await allUsers.value
+    //     break;
+    //   case "messages":
+    //     result = await graphClient.api("/me/messages").get();
+    //     break;
+    //   // Add more cases as needed
+    //   default:
+    //     context.res = {
+    //       status: 400,
+    //       body: "Unsupported endpoint"
+    //     };
+    // }
     res.body = result;
 
   } catch (error) {

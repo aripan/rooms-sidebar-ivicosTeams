@@ -1,7 +1,11 @@
 import React from "react";
-import CommonRoomViewView from "./CommonRoomView.view";
+import { IRoom } from "../../../db/dbTypes";
+import { CommonRoomViewView } from "./CommonRoomView.view";
 
-const CommonRoomView: React.FC<{}> = () => {
+interface ICommonRoomViewProps {
+  roomToShow: IRoom;
+}
+const CommonRoomView: React.FC<ICommonRoomViewProps> = (props) => {
   return <CommonRoomViewView />;
 };
 

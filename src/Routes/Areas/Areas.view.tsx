@@ -52,7 +52,7 @@ const AreasView: React.FunctionComponent<IAreasViewProps> = (props) => {
                   fontSize: 18,
                 }}
                 onClick={() => {
-                  routeHistory(`/rooms/${currentUser?.id}`);
+                  routeHistory(`/areas/${area.id}/rooms/${currentUser?.id}`);
                 }}
               />
             ))}

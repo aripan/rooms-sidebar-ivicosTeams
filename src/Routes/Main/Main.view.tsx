@@ -4,10 +4,10 @@ import "rc-dock/dist/rc-dock.css";
 import { default as React, useEffect, useState } from "react";
 import SideBar from "../../components/SideBar/SideBar";
 import RoomList from "../../components/RoomList/RoomList";
-import Rooms from "../../components/RoomView/Rooms";
 import { MainState } from "./Main.state";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@fluentui/react-components";
+import RoomView from "../../components/RoomView/RoomView";
 
 const MainView: React.FC<MainState> = (props) => {
   const routeHistory = useNavigate();
@@ -77,7 +77,7 @@ const MainView: React.FC<MainState> = (props) => {
           </Stack>
 
           <Stack style={mainViewContainerStyles}>
-            <Rooms rooms={rooms} />
+            <RoomView users={users} rooms={rooms} />
           </Stack>
         </DividerBox>
       ) : (
