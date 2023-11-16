@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Spinner } from "@fluentui/react-components";
 import RoomView from "../../components/RoomView/RoomView";
 import CreateNewRoomButton from "../../components/RoomList/CommonRoom/CreateNewRoomButton/CreateNewRoomButton";
+import CreateNewCommonRoom from "../../components/RoomList/CommonRoom/CreateNewCommonRoom/CreateNewCommonRoom";
 
 const MainView: React.FC<MainState> = (props) => {
   const routeHistory = useNavigate();
@@ -67,21 +68,24 @@ const MainView: React.FC<MainState> = (props) => {
       </Stack>
 
       {showStructure ? (
-        <DividerBox
-          mode={"horizontal"}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <Stack style={sideBarContainerStyles}>
-            <SideBar>
-              <RoomList users={users} rooms={rooms} />
-              <CreateNewRoomButton />
-            </SideBar>
-          </Stack>
+        <>
+          <DividerBox
+            mode={"horizontal"}
+            style={{ width: "100%", height: "100%" }}
+          >
+            <Stack style={sideBarContainerStyles}>
+              <SideBar>
+                <RoomList users={users} rooms={rooms} />
+                <CreateNewRoomButton />
+              </SideBar>
+            </Stack>
 
-          <Stack style={mainViewContainerStyles}>
-            <RoomView users={users} rooms={rooms} />
-          </Stack>
-        </DividerBox>
+            <Stack style={mainViewContainerStyles}>
+              <RoomView users={users} rooms={rooms} />
+            </Stack>
+          </DividerBox>
+          <CreateNewCommonRoom />
+        </>
       ) : (
         <Spinner style={{ margin: 100 }} />
       )}

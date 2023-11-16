@@ -36,35 +36,28 @@ export default async function run(
     // const userInfo = await getUserInfo(accessToken);
     const graphClient = getGraphClient(accessToken);
 
-
     let result: any;
-
-    switch (endpoint) {
-      case "me":
-        result = await graphClient.api("/me").get();
-        break;
-      case "photo":
-        const response = await graphClient.api("/me/photo/$value").get();
-        result = await convertBlobToBinaryData(response)
-        break;
-      case "photo-presence":
-        const presenceInfo = await graphClient.api("/me/presence").version('beta').get();
-        const imageRes = await graphClient.api("/me/photo/$value").get();
-        const image = await convertBlobToBinaryData(imageRes)
-        result = { image, presenceInfo }
-        break;
-      case "messages":
-        result = await graphClient.api("/me/messages").get();
-        break;
-      // Add more cases as needed
-      default:
+    if (endpoint) {
+      if (endpoint === 'createTeam') {
+        const team = req.body;
+        if (team) {
+          await graphClient.api("/teams").post(team);
+          result = await graphClient.api("/me/joinedTeams").get();
+        }
+      } else if (endpoint === "joinedTeams") {
+        result = await graphClient.api("/me/joinedTeams").get();
+      } else if (endpoint.includes('teamPhoto')) {
+        const teamId = endpoint.split('=')[1];
+        const teamPhotoRes = await graphClient.api(`/teams/${teamId}/photo/$value`).get();
+        result = await convertBlobToBinaryData(teamPhotoRes)
+      } else {
         context.res = {
           status: 400,
           body: "Unsupported endpoint"
         };
+      }
     }
     res.body = result;
-
   } catch (error) {
     context.log.error(error);
     return createResponse(500, { error: error.message || 'Internal Server Error' });
