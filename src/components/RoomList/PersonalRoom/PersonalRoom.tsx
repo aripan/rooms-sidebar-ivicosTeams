@@ -1,25 +1,20 @@
-import { Label, Stack, Text } from "@fluentui/react";
+import { Label, Stack } from "@fluentui/react";
 import { UserPersona } from "../UserPersona";
 import { useCurrentUserInfo } from "../../../shared-state/users/hooks";
 import { IUser } from "../../../db/dbTypes";
-import { useAzureFunctionData } from "../../../HandleAzureFunctionalities/hooks";
-import { TeamsFxContext } from "../../../Context";
-import { useContext } from "react";
 
 export interface IPersonalRoom {
   user: IUser;
+  userImage: string;
+  userPresenceInfo: any;
 }
-export const PersonalRoom: React.FC<IPersonalRoom> = ({ user }) => {
+export const PersonalRoom: React.FC<IPersonalRoom> = ({
+  user,
+  userImage,
+  userPresenceInfo,
+}) => {
   const [currentUserInfo] = useCurrentUserInfo();
   const isCurrentUser = currentUserInfo?.id === user.id;
-
-  const { teamsUserCredential } = useContext(TeamsFxContext);
-  const { loading, data, error, reload } = useAzureFunctionData(
-    teamsUserCredential!,
-    "userRoutes/photo-presence"
-  );
-
-  const { image, presenceInfo } = data ?? {};
 
   return (
     <Stack
@@ -40,16 +35,12 @@ export const PersonalRoom: React.FC<IPersonalRoom> = ({ user }) => {
       >
         {user.name}'s personal room
       </Label>
-      {loading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <UserPersona
-          name={user.name}
-          imageUrl={image}
-          presenceStatus={presenceInfo.activity.toLowerCase()}
-          outOfOfficeStatus={presenceInfo.outOfOfficeSettings.isOutOfOffice}
-        />
-      )}
+      <UserPersona
+        name={user.name}
+        imageUrl={userImage}
+        presenceStatus={userPresenceInfo?.activity.toLowerCase()}
+        outOfOfficeStatus={userPresenceInfo?.outOfOfficeSettings.isOutOfOffice}
+      />
     </Stack>
   );
 };

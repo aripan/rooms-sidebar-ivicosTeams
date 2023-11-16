@@ -30,10 +30,24 @@ const useMainState: () => MainState = () => {
   useEffect(() => {
     // Load users from the "database" when the component mounts
     setUsers(getUsers());
-    fetchTeamRooms();
 
     // Load users from the "database" when the component mounts
     setRooms(getRooms());
+
+    const fetchTeamRooms = async () => {
+      try {
+        const functionRes = await CallAzureFunction(
+          teamsUserCredential,
+          "teamsRoutes/joinedTeams"
+        );
+        const teams = await functionRes.value;
+        setTeamRooms(teams);
+      } catch (error: any) {
+        throw error;
+      }
+    };
+
+    fetchTeamRooms();
   }, []);
 
   useEffect(() => {
@@ -70,19 +84,6 @@ const useMainState: () => MainState = () => {
       updated_at: joinedUser.updated_at,
     };
     addUser(newUser);
-  };
-
-  const fetchTeamRooms = async () => {
-    try {
-      const functionRes = await CallAzureFunction(
-        teamsUserCredential,
-        "teamsRoutes/joinedTeams"
-      );
-      const teams = await functionRes.value;
-      setTeamRooms(teams);
-    } catch (error: any) {
-      throw error;
-    }
   };
 
   const handleAddRoom = (addedRoom: any) => {

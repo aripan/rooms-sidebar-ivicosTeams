@@ -6,12 +6,17 @@ import {
   useCurrentUserInfo,
   useUsersInCommonRoom,
 } from "../../../shared-state/users/hooks";
+import { useTeamRooms } from "../../../shared-state/rooms/hooks";
 
 export const CommonRoomViewView: React.FC<any> = (props) => {
-  const { roomToShow } = props;
+  const { roomToShow, currentAreaId } = props;
   const routeHistory = useNavigate();
   const [currentUserInfo] = useCurrentUserInfo();
   const [usersInCommonRoom, setUsersInCommonRoom] = useUsersInCommonRoom();
+  const [teamRooms] = useTeamRooms();
+  const currentTeamRoom = teamRooms.find(
+    (teamRoom: any) => teamRoom.id === roomToShow.id
+  );
 
   const handleGoBackToPersonalRoom = () => {
     const userToGoBack = usersInCommonRoom.find(
@@ -21,7 +26,7 @@ export const CommonRoomViewView: React.FC<any> = (props) => {
       setUsersInCommonRoom(
         usersInCommonRoom.filter((user) => user.id !== userToGoBack.id)
       );
-      routeHistory(`/rooms/${currentUserInfo?.id}`);
+      routeHistory(`/areas/${currentAreaId}/rooms/${currentUserInfo?.id}`);
     }
   };
 
@@ -39,7 +44,7 @@ export const CommonRoomViewView: React.FC<any> = (props) => {
           color: "#000",
         }}
       >
-        <Text>{roomToShow?.name}</Text>
+        <Text>{currentTeamRoom?.displayName}</Text>
         {!roomToShow?.id.includes(currentUserInfo?.id) && (
           <Icon
             iconName="OutOfOffice"

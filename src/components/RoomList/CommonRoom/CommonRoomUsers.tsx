@@ -10,12 +10,20 @@ export interface ICommonRoomUsersProps {
   usersInsideTheRoom?: IUser[];
   isUserInsideTheRoom?: boolean;
   knockOnRoomAction: IRoomAction;
+  userImage: string;
+  userPresenceInfo: any;
 }
 
 const CommonRoomUsers: React.FunctionComponent<ICommonRoomUsersProps> = (
   props
 ) => {
-  const { usersInsideTheRoom, isUserInsideTheRoom, knockOnRoomAction } = props;
+  const {
+    usersInsideTheRoom,
+    isUserInsideTheRoom,
+    knockOnRoomAction,
+    userImage,
+    userPresenceInfo,
+  } = props;
   const [usersInCommonRoom, setUsersInCommonRoom] = useUsersInCommonRoom();
 
   useEffect(() => {
@@ -39,9 +47,11 @@ const CommonRoomUsers: React.FunctionComponent<ICommonRoomUsersProps> = (
         <Stack horizontal horizontalAlign="space-between">
           <UserPersona
             name={user.name}
-            imageUrl={""}
-            presenceStatus={"available"}
-            outOfOfficeStatus={false}
+            imageUrl={userImage}
+            presenceStatus={userPresenceInfo.activity.toLowerCase()}
+            outOfOfficeStatus={
+              userPresenceInfo.outOfOfficeSettings.isOutOfOffice
+            }
           />
 
           <Stack

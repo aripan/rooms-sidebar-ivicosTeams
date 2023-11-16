@@ -9,10 +9,13 @@ import { useRoomActions } from "../helpers/roomHooks";
 
 export interface ICommonRoomProps {
   room: IRoom;
+  currentAreaId: string;
+  userImage: string;
+  userPresenceInfo: any;
 }
 
 const CommonRoom: React.FunctionComponent<ICommonRoomProps> = (props) => {
-  const { room } = props;
+  const { room, currentAreaId, userImage, userPresenceInfo } = props;
   const routeHistory = useNavigate();
   const { roomId } = useParams();
   const [isUserInsideTheRoom, setIsUserInsideTheRoom] = useState(false);
@@ -32,7 +35,7 @@ const CommonRoom: React.FunctionComponent<ICommonRoomProps> = (props) => {
   return (
     <Stack
       onClick={() => {
-        routeHistory(`/rooms/${room?.id}`);
+        routeHistory(`/areas/${currentAreaId}/rooms/${room?.id}`);
       }}
       style={{
         cursor: "pointer",
@@ -44,6 +47,8 @@ const CommonRoom: React.FunctionComponent<ICommonRoomProps> = (props) => {
           usersInsideTheRoom={usersInsideTheRoom}
           isUserInsideTheRoom={isUserInsideTheRoom}
           knockOnRoomAction={knockOnRoomAction}
+          userImage={userImage}
+          userPresenceInfo={userPresenceInfo}
         />
       )}
     </Stack>

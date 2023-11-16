@@ -9,10 +9,14 @@ import { useUsersInCommonRoom } from "../../shared-state/users/hooks";
 import { useLocation } from "react-router-dom";
 
 const RoomListView: React.FC<any> = (props) => {
-  const { users, rooms } = props;
+  const { users, rooms, userImage, userPresenceInfo } = props;
   const [usersInCommonRoom] = useUsersInCommonRoom();
   const { pathname } = useLocation();
   const currentAreaId = pathname?.split("/rooms/")[0].split("/areas/")[1];
+  const usersNotInCommonRoom = users.filter(
+    (user: IUser) =>
+      !usersInCommonRoom.some((commonUser) => commonUser.id === user.id)
+  );
 
   return (
     <Stack style={{ maxHeight: "100%", height: "100%" }}>
@@ -29,28 +33,25 @@ const RoomListView: React.FC<any> = (props) => {
           <Stack
             style={{
               padding: "0 10px 10px 10px",
-              height: 500,
+              height: usersNotInCommonRoom.length > 0 ? 500 : 0,
               overflowY: "auto",
               marginBottom: 10,
             }}
           >
-            {users
-              .filter(
-                (user: IUser) =>
-                  !usersInCommonRoom.some(
-                    (commonUser) => commonUser.id === user.id
-                  )
-              )
-              .map((user: IUser) => (
-                <Stack
-                  key={user.id}
-                  style={{
-                    margin: "5px 0",
-                  }}
-                >
-                  <PersonalRoom user={user} />
-                </Stack>
-              ))}
+            {usersNotInCommonRoom.map((user: IUser) => (
+              <Stack
+                key={user.id}
+                style={{
+                  margin: "5px 0",
+                }}
+              >
+                <PersonalRoom
+                  user={user}
+                  userImage={userImage}
+                  userPresenceInfo={userPresenceInfo}
+                />
+              </Stack>
+            ))}
           </Stack>
           <h3
             style={{
@@ -61,7 +62,7 @@ const RoomListView: React.FC<any> = (props) => {
           </h3>
           <Stack
             style={{
-              height: 500,
+              height: users.length > 0 ? 500 : "100%",
               overflowY: "auto",
               padding: "0 10px 10px 10px",
               marginBottom: 10,
@@ -70,7 +71,13 @@ const RoomListView: React.FC<any> = (props) => {
             {rooms
               .filter((room: IRoom) => room.area_id === currentAreaId)
               .map((room: IRoom) => (
-                <CommonRoom room={room} key={room.id} />
+                <CommonRoom
+                  room={room}
+                  key={room.id}
+                  currentAreaId={currentAreaId}
+                  userImage={userImage}
+                  userPresenceInfo={userPresenceInfo}
+                />
               ))}
           </Stack>
         </DividerBox>

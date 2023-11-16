@@ -4,9 +4,10 @@ import { CommonRoomViewView } from "./CommonRoomView.view";
 
 interface ICommonRoomViewProps {
   roomToShow: IRoom;
+  currentAreaId: string;
 }
 const CommonRoomView: React.FC<ICommonRoomViewProps> = (props) => {
-  return <CommonRoomViewView />;
+  return <CommonRoomViewView {...props} />;
 };
 
 export default CommonRoomView;

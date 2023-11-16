@@ -1,6 +1,6 @@
 import { Stack } from "@fluentui/react";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { IRoom, IUser } from "../../db/dbTypes";
 import CommonRoomView from "./CommonRoomView/CommonRoomView";
 import PersonalRoomView from "./PersonalRoomView/PersonalRoomView";
@@ -15,6 +15,9 @@ const RoomViewView: React.FC<IRoomViewViewProps> = (props) => {
   const { roomId } = useParams();
   const roomToShow = rooms.find((room: IRoom) => room.id === roomId);
   const personalRoomToShow = users.find((user: IUser) => user.id === roomId);
+  const { pathname } = useLocation();
+  const currentAreaId = pathname?.split("/rooms/")[0].split("/areas/")[1];
+
   return (
     <Stack
       style={{
@@ -24,7 +27,7 @@ const RoomViewView: React.FC<IRoomViewViewProps> = (props) => {
       }}
     >
       {roomToShow && !personalRoomToShow && (
-        <CommonRoomView roomToShow={roomToShow} />
+        <CommonRoomView roomToShow={roomToShow} currentAreaId={currentAreaId} />
       )}
       {!roomToShow && personalRoomToShow && (
         <PersonalRoomView personalRoomToShow={personalRoomToShow} />
