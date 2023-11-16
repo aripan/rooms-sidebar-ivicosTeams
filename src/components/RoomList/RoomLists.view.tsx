@@ -6,10 +6,13 @@ import { PersonalRoom } from "./PersonalRoom/PersonalRoom";
 import { IRoom, IUser } from "../../db/dbTypes";
 import CommonRoom from "./CommonRoom/CommonRoom";
 import { useUsersInCommonRoom } from "../../shared-state/users/hooks";
+import { useLocation } from "react-router-dom";
 
 const RoomListView: React.FC<any> = (props) => {
   const { users, rooms } = props;
   const [usersInCommonRoom] = useUsersInCommonRoom();
+  const { pathname } = useLocation();
+  const currentAreaId = pathname?.split("/rooms/")[0].split("/areas/")[1];
 
   return (
     <Stack style={{ maxHeight: "100%", height: "100%" }}>
@@ -64,9 +67,11 @@ const RoomListView: React.FC<any> = (props) => {
               marginBottom: 10,
             }}
           >
-            {rooms.map((room: IRoom) => (
-              <CommonRoom room={room} key={room.id} />
-            ))}
+            {rooms
+              .filter((room: IRoom) => room.area_id === currentAreaId)
+              .map((room: IRoom) => (
+                <CommonRoom room={room} key={room.id} />
+              ))}
           </Stack>
         </DividerBox>
       </Stack>
