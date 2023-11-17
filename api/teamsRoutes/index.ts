@@ -50,7 +50,12 @@ export default async function run(
         const teamId = endpoint.split('=')[1];
         const teamPhotoRes = await graphClient.api(`/teams/${teamId}/photo/$value`).get();
         result = await convertBlobToBinaryData(teamPhotoRes)
-      } else {
+      }
+      else if (endpoint.includes('teamMembers')) {
+        const teamId = endpoint.split('=')[1];
+        result = await graphClient.api(`/teams/${teamId}/members`).get();
+      }
+      else {
         context.res = {
           status: 400,
           body: "Unsupported endpoint"

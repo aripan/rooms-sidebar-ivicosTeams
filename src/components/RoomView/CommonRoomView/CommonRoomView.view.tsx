@@ -7,6 +7,7 @@ import {
   useUsersInCommonRoom,
 } from "../../../shared-state/users/hooks";
 import { useTeamRooms } from "../../../shared-state/rooms/hooks";
+import MembersOfATeam from "./MembersOfATeam/MembersOfATeam";
 
 export const CommonRoomViewView: React.FC<any> = (props) => {
   const { roomToShow, currentAreaId } = props;
@@ -31,13 +32,17 @@ export const CommonRoomViewView: React.FC<any> = (props) => {
   };
 
   return (
-    <Stack>
+    <Stack
+      style={{
+        height: "100%",
+      }}
+    >
       <Stack
         horizontal
         horizontalAlign="space-between"
         verticalAlign="center"
         style={{
-          height: 40,
+          height: "10%",
           backgroundColor: "rgba(145, 234, 228, 0.9)",
           padding: 10,
           borderRadius: "8px 8px 0 0",
@@ -58,20 +63,33 @@ export const CommonRoomViewView: React.FC<any> = (props) => {
         )}
       </Stack>
       <Stack
-        horizontalAlign="center"
-        verticalAlign="center"
         style={{
-          marginTop: 120,
+          height: "90%",
+          backgroundImage: `url(${roomToShow?.attributes?.roomImg})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          opacity: 0.5,
         }}
       >
-        <Image
-          src={roomToShow?.attributes?.roomImg}
-          width={350}
-          height={350}
+        {/* <Stack
+          horizontalAlign="center"
+          verticalAlign="center"
           style={{
-            borderRadius: "50%",
+            marginTop: 120,
           }}
-        />
+        >
+          <Image
+            src={roomToShow?.attributes?.roomImg}
+            width={350}
+            height={350}
+            style={{
+              borderRadius: "50%",
+            }}
+          />
+        </Stack> */}
+
+        {/* <MembersOfATeam currentTeamRoom={currentTeamRoom} /> */}
       </Stack>
     </Stack>
   );

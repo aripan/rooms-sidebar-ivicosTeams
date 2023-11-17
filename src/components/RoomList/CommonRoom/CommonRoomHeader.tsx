@@ -4,6 +4,7 @@ import { IRoom } from "../../../db/dbTypes";
 import { useTeamRooms } from "../../../shared-state/rooms/hooks";
 import { TeamsFxContext } from "../../../Context";
 import { CallAzureFunction } from "../../../HandleAzureFunctionalities/CallAzureFunction";
+import { Spinner } from "@fluentui/react-components";
 
 export interface ICommonRoomHeaderProps {
   room: IRoom;
@@ -28,6 +29,18 @@ const CommonRoomHeader: React.FunctionComponent<ICommonRoomHeaderProps> = ({
     throw new Error("TeamsFx SDK is not initialized.");
   }
 
+  const fetchCurrentTeamRoomPhoto = async (id: any) => {
+    try {
+      const functionRes = await CallAzureFunction(
+        teamsUserCredential,
+        `teamsRoutes/teamPhoto=${id}`
+      );
+      setTeamRoomImage(functionRes);
+    } catch (error: any) {
+      throw error;
+    }
+  };
+
   useEffect(() => {
     const fetchCurrentTeamRoomPhoto = async (id: any) => {
       try {
@@ -41,6 +54,12 @@ const CommonRoomHeader: React.FunctionComponent<ICommonRoomHeaderProps> = ({
       }
     };
     fetchCurrentTeamRoomPhoto(room.id);
+
+    if (!teamRoomImage) {
+      setTimeout(() => {
+        fetchCurrentTeamRoomPhoto(room.id);
+      }, 1000);
+    }
   }, [room, teamsUserCredential]);
 
   return (
@@ -63,12 +82,17 @@ const CommonRoomHeader: React.FunctionComponent<ICommonRoomHeaderProps> = ({
           childrenGap: 8,
         }}
       >
-        <Image
-          src={teamRoomImage}
-          alt="team-room-image"
-          width={20}
-          height={20}
-        />
+        {teamRoomImage ? (
+          <Image
+            src={teamRoomImage}
+            alt="team-room-image"
+            width={20}
+            height={20}
+          />
+        ) : (
+          <Spinner size="tiny" />
+        )}
+
         <Text>{currentTeamRoom?.displayName}</Text>
       </Stack>
     </Stack>

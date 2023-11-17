@@ -7,6 +7,7 @@ import { CallAzureFunction } from "../../HandleAzureFunctionalities/CallAzureFun
 import { TeamsFxContext } from "../../Context";
 import { useLocation } from "react-router-dom";
 import { daysBefore } from "../../db/dates";
+import { faker } from "@faker-js/faker";
 
 export interface MainState {
   users: IUser[];
@@ -94,7 +95,7 @@ const useMainState: () => MainState = () => {
       channel_id: "",
       attributes: {
         icon: "",
-        roomImg: "",
+        roomImg: faker.image.urlLoremFlickr({ category: "nature" }),
         // ... other room properties
       },
       archived: addedRoom.isArchived,

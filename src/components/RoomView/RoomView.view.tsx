@@ -22,7 +22,7 @@ const RoomViewView: React.FC<IRoomViewViewProps> = (props) => {
     <Stack
       style={{
         height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         borderRadius: "10px 10px 0 0",
       }}
     >
