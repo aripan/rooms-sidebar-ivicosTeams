@@ -1,7 +1,12 @@
 import "isomorphic-fetch";
 import { Context, HttpRequest } from "@azure/functions";
-import { getGraphClient } from '../utils/graphClient'
-import { convertBlobToBinaryData, createResponse, getAccessToken } from '../utils/utils'
+import { getGraphClient } from "../utils/graphClient";
+import {
+  convertBlobToBinaryData,
+  createResponse,
+  getAccessToken,
+} from "../utils/utils";
+import pool from "../utils/db";
 
 interface Response {
   status: number;
@@ -27,7 +32,6 @@ export default async function run(
   const endpoint = req.params.endpoint;
   context.log("Requested endpoint:", endpoint);
 
-
   try {
     // Get the access token first
     const accessToken = getAccessToken(teamsfxContext);
@@ -36,22 +40,26 @@ export default async function run(
     // const userInfo = await getUserInfo(accessToken);
     const graphClient = getGraphClient(accessToken);
 
-
     let result: any;
 
     switch (endpoint) {
       case "me":
+        const data = await pool.query("SELECT * FROM users");
+        console.log("🚀 ~ file: index.ts:55 ~ data:", data.rows);
         result = await graphClient.api("/me").get();
         break;
       case "photo":
         const response = await graphClient.api("/me/photo/$value").get();
-        result = await convertBlobToBinaryData(response)
+        result = await convertBlobToBinaryData(response);
         break;
       case "photo-presence":
-        const presenceInfo = await graphClient.api("/me/presence").version('beta').get();
+        const presenceInfo = await graphClient
+          .api("/me/presence")
+          .version("beta")
+          .get();
         const imageRes = await graphClient.api("/me/photo/$value").get();
-        const image = await convertBlobToBinaryData(imageRes)
-        result = { image, presenceInfo }
+        const image = await convertBlobToBinaryData(imageRes);
+        result = { image, presenceInfo };
         break;
       case "messages":
         result = await graphClient.api("/me/messages").get();
@@ -60,14 +68,15 @@ export default async function run(
       default:
         context.res = {
           status: 400,
-          body: "Unsupported endpoint"
+          body: "Unsupported endpoint",
         };
     }
     res.body = result;
-
   } catch (error) {
     context.log.error(error);
-    return createResponse(500, { error: error.message || 'Internal Server Error' });
+    return createResponse(500, {
+      error: error.message || "Internal Server Error",
+    });
   }
 
   return res;

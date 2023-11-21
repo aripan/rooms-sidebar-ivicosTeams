@@ -15,9 +15,10 @@
   },
   "dependencies": {
     "@azure/functions": "^1.2.2",
-    "@microsoft/teamsfx": "^2.0.0",
     "@microsoft/microsoft-graph-client": "^3.0.1",
-    "isomorphic-fetch": "^3.0.0"
+    "@microsoft/teamsfx": "^2.0.0",
+    "isomorphic-fetch": "^3.0.0",
+    "pg": "^8.11.3"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
