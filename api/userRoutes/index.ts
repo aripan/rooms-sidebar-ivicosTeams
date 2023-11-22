@@ -7,6 +7,8 @@ import {
   getAccessToken,
 } from "../utils/utils";
 import pool from "../utils/db";
+import { faker } from "@faker-js/faker";
+import { daysAfter, daysBefore } from "../utils/dates";
 
 interface Response {
   status: number;
@@ -44,9 +46,28 @@ export default async function run(
 
     switch (endpoint) {
       case "me":
-        const data = await pool.query("SELECT * FROM users");
-        console.log("🚀 ~ file: index.ts:55 ~ data:", data.rows);
-        result = await graphClient.api("/me").get();
+        // const data = await pool.query("SELECT * FROM users");
+        const meResponse = await graphClient.api("/me").get();
+
+        const userExist = await pool.query(`SELECT * FROM users WHERE id=$1`, [
+          meResponse.id,
+        ]);
+        if (userExist.rows.length === 0) {
+          await pool.query(
+            `INSERT INTO users (id, org_id, tabs, archived, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6)`,
+            [
+              meResponse.id,
+              faker.string.uuid(),
+              [],
+              false,
+              daysBefore(3),
+              daysAfter(3),
+            ]
+          );
+        } else {
+          console.warn("User already exists");
+        }
+        result = meResponse;
         break;
       case "photo":
         const response = await graphClient.api("/me/photo/$value").get();

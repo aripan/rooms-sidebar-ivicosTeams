@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@azure/functions": "^1.2.2",
+    "@faker-js/faker": "^8.3.1",
     "@microsoft/microsoft-graph-client": "^3.0.1",
     "@microsoft/teamsfx": "^2.0.0",
     "isomorphic-fetch": "^3.0.0",
